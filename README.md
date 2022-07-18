@@ -1,4 +1,4 @@
-# Code Transformation Format
+# Code Transformation Format (CodeTF)
 
 This repository holds the definition of the Code Transformation Format (CodeTF).
 

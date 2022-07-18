@@ -1,4 +1,4 @@
-This document describes a first-draft version of the CCF spec.
+This document describes a first-draft version of the CodeTF spec.
 
 ```
 {
