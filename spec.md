@@ -39,14 +39,14 @@ This document describes a first-draft version of the CodeTF spec.
         "diff" : "... udiff text...", # the unified diff format of the changes made to the file
         "changes" : [ # a description of the changes being suggested or applied
            { 
-             "lineNumber" : "153", # the line where the analysis discovered a place to make a change. can't be relied on for anything except re-running with "include"/exclude" with this  
-             "category" : "java-deserialization-hardening", # a "code" or "rule id" that consistently maps to a vendor's knowledgebase and allows customized storytelling  
+             "lineNumber" : "153", # the line where the analysis discovered a place to make a change. can't be relied on for anything except re-running with "include"/"exclude" with this  
+             "category" : "pixee:java/deserialization-hardening", # a "code" or "rule ID" that consistently maps to a vendor's knowledgebase and allows customized storytelling  
              "description" : "Added a call to ObjectInputStream#setObjectFilter() to prevent known malicious gadgets..",
              "properties" : { } # An arbitrary set of vendor-specific properties to help storytelling
            },
            { 
              "lineNumber" : "71",
-             "category" : "java-secure-randomness",
+             "category" : "pixee:java/secure-random",
              "description" : "Replaced a call to java.util.Random with java.secure.SecureRandom",
              "properties" : { "something" : "customValue" }
            }
