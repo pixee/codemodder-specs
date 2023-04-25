@@ -32,6 +32,15 @@ This document describes a first-draft version of the CodeTF spec.
   "results" : [
      {
         "codemod" : "pixee:java/deserialization", // an ID that consistently maps to a vendor's knowledgebase
+        "summary" : "Hardened object deserialization calls against attack",
+        "description" : "Lengthier description about deserialization risks, protections, etc...",
+        "references" : [
+            {
+                "url" : "https://www.oracle.com/technetwork/java/seccodeguide-139067.html#8",
+                "description" : "Oracle's Secure Coding Guidelines for Java SE"
+            }
+        ],
+        "properties" : { }, // An arbitrary set of vendor-specific properties to help storytelling
         "files" : [
             {
                 "path" : "src/main/java/org/acme/MyDeserializerAction.java", // the relative path of the file, which when combined with the configuration directory, gives the fully qualified path
@@ -41,7 +50,7 @@ This document describes a first-draft version of the CodeTF spec.
                         "lineNumber" : "153", // the "primary" line number that was changed (should be deterministic)
                         "description" : "Added a call to ObjectInputStream//setObjectFilter() to prevent known malicious gadgets..", // human readable description of a given change
                         "properties" : { }, // An arbitrary set of vendor-specific properties to help storytelling
-                        "dependencies" : [ // the dependencies that were added to support changes to the file
+                        "dependencies" : [ // the dependencies that were needed to support changes to the file, even if it is already there and injection wasn't necessary
                             {   
                                 "dependency" : "io.github.pixee:java-security-toolkit:1.0.2"
                             }
