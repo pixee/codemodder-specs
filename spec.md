@@ -48,7 +48,7 @@ This document describes a first-draft version of the CodeTF spec.
                 "changes" : [
                     {
                         "lineNumber" : "153", // the "primary" line number that was changed (should be deterministic)
-                        "description" : "Added a call to ObjectInputStream//setObjectFilter() to prevent known malicious gadgets..", // human readable description of a given change
+                        "description" : "Added a call to ObjectInputStream#setObjectFilter() to prevent known malicious gadgets..", // human readable description of a given change
                         "properties" : { }, // An arbitrary set of vendor-specific properties to help storytelling
                         "dependencies" : [ // the dependencies that were needed to support changes to the file, even if it is already there and injection wasn't necessary
                             {   
