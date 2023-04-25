@@ -9,7 +9,7 @@ This document describes a first-draft version of the CodeTF spec.
     "commandLine" : "pixee change . --dry-run" // literal command line used to re-create this run
     "elapsed" : "105024" // how long, in miliseconds, the analysis and report generation took to execute
     "configuration" : {
-       "projectDirectory" : "/tmp/path/to/repository/", // the location on disk of the code directory being scanned
+       "directory" : "/tmp/path/to/repository/", // the location on disk of the code directory being scanned
        "sarifs" : [ // the analysis inputs from other tools that are informing the analysis
           {
             "artifact" : "/tmp/path/to/semmle.sarif", // the file containing the SARIF or other input 
