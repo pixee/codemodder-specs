@@ -16,14 +16,9 @@ This document describes a first-draft version of the CodeTF spec.
             "sha1" : "2F5A14..." // hash representing the artifact
           }
        ],
-       "includes" : ["/path/to/include.java"], // the files specifically included in the scan
-       "excludes" : ["/path/to/exclude.js:52"] // the files specifically excluded in the scan
+       "filesScanned" : ["/path/to/include.java", "/path/to/included_file.jsp"], // the files scanned by the tool given the configuration
+       "filesIgnored" : ["/path/to/exclude.java", "/path/to/excluded_file.jsp"], // the files not scanned by the tool given the configuration
     },
-    "fileExtensionsScanned" : [ // describes what types of files were scanned
-      {"extension" :  "java", "count" :  "156"},
-      {"extension" :  "js", "count" :  "7"},
-      {"extension" :  "xml", "count" :  "128"}
-    ],
     "failedFiles" : [
       "/foo/failed.java"
     ]
@@ -52,7 +47,7 @@ This document describes a first-draft version of the CodeTF spec.
                         "properties" : { }, // An arbitrary set of vendor-specific properties to help storytelling
                         "dependencies" : [ // the dependencies that were needed to support changes to the file, even if it is already there and injection wasn't necessary
                             {   
-                                "dependency" : "io.github.pixee:java-security-toolkit:1.0.2"
+                                "dependency" : "pkg:maven/io.github.pixee/java-security-toolkit@1.0.2"
                             }
                         ]
                     },
@@ -62,8 +57,8 @@ This document describes a first-draft version of the CodeTF spec.
                         "properties" : {
                         },
                         "dependencies" : [
-                            {   
-                                "dependency" : "io.github.pixee:java-security-toolkit:1.0.2"
+                            {
+                              "dependency" : "pkg:maven/io.github.pixee/java-security-toolkit@1.0.2"
                             }
                         ]
                     }
