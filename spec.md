@@ -46,7 +46,7 @@ Note that the `changeset` array can have multiple entries for the same given fil
                             {   
                                 "action" : "add",
                                 "success": "true",
-                                "dependency" : "pkg:maven/io.github.pixee/java-security-toolkit@1.0.2" (required)
+                                "dependency" : "pkg:maven/io.github.pixee/java-security-toolkit@1.0.2" // (required)
                             }
                         ]
                     }
