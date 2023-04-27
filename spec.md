@@ -44,6 +44,8 @@ Note that the `changeset` array can have multiple entries for the same given fil
                         "properties" : { }, // An arbitrary set of vendor-specific properties to help storytelling (optional)
                         "dependencies" : [ // the dependencies that were needed to support changes to the file, even if it is already there and injection wasn't necessary (optional)
                             {   
+                                "action" : "add",
+                                "success": "true",
                                 "dependency" : "pkg:maven/io.github.pixee/java-security-toolkit@1.0.2" (required)
                             }
                         ]
