@@ -33,6 +33,9 @@ Note that the `changeset` array can have multiple entries for the same given fil
             }
         ],
         "properties" : { }, // An arbitrary set of vendor-specific properties to help storytelling (optional)
+        "failedFiles" : [ // a set of files that failed to be scanned or failed to be changed (optional)
+            "/foo/failed.java"
+        ]
         "changeset" : [ // the changes for a given codemod (required)
             {
                 "path" : "src/main/java/org/acme/MyDeserializerAction.java", // the relative path of the file, which when combined with the configuration directory, gives the fully qualified path (required)
@@ -51,9 +54,6 @@ Note that the `changeset` array can have multiple entries for the same given fil
                         ]
                     }
                 ],
-              "failedFiles" : [ // a set of files that failed to be scanned or failed to be changed (optional)
-                "/foo/failed.java"
-              ]
             }, 
             {
                 "path" : "pom.xml",
