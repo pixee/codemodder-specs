@@ -51,9 +51,9 @@ Note that the `changeset` array can have multiple entries for the same given fil
                         ]
                     }
                 ],
-              "failedFiles" : [ // a set of files that failed to be scanned or failed to be changed (optional)
-                "/foo/failed.java"
-              ]
+                "failedFiles" : [ // a set of files that failed to be scanned or failed to be changed (optional)
+                  "/foo/failed.java"
+                ]
             }, 
             {
                 "path" : "pom.xml",
