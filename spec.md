@@ -42,11 +42,11 @@ Note that the `changeset` array can have multiple entries for the same given fil
                         "lineNumber" : "153", // the "primary" line number that was changed (required)
                         "description" : "Added a call to ObjectInputStream#setObjectFilter() to prevent known malicious gadgets..", // human readable description of a given change (optional)
                         "properties" : { }, // An arbitrary set of vendor-specific properties to help storytelling (optional)
-                        "dependencies" : [ // the dependencies that were needed to support changes to the file, even if it is already there and injection wasn't necessary (optional)
+                        "packageActions" : [ // the package actions that were needed to support changes to the file, even if it is already there and injection wasn't necessary (optional)
                             {   
-                                "action" : "add",
-                                "success": "true",
-                                "dependency" : "pkg:maven/io.github.pixee/java-security-toolkit@1.0.2" // (required)
+                                "action" : "add", // one of add or remove (required)
+                                "result": "completed", // one of completed, failed, or skipped (required) 
+                                "package" : "pkg:maven/io.github.pixee/java-security-toolkit@1.0.2" // (required)
                             }
                         ]
                     }
