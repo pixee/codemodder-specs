@@ -4,6 +4,8 @@ The `results` and `changeset` fields can be seen as a series of patches against 
 
 Note that the `changeset` array can have multiple entries for the same given file.
 
+Note that the `lineNumber` field should be deterministic, and this can't be traded for accuracy. The purpose of the line number is only to capture a location to be used in a `--path-include` or `--path-exclude` argument. 
+
 ```json
 {
   "run" : {
