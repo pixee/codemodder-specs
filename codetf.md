@@ -12,7 +12,7 @@ Note that like SARIF, this format is not intended to be a replacement for a diag
 
 # Notes
 
-The `results` and `changeset` fields can be seen as a series of patches against the project directory. Each patch builds on any previous patches seen. Therefore, applying a patch from the middle of a changeset without the others may be invalid.
+The `results` and `changeset` fields can be seen as a series of patches against the project directory. Each patch builds on any previous patches seen. Therefore, applying a patch from the middle of a changeset without the others may be invalid. Multiple locations can be changed in a single file within the scope of a single codemod and be represented by a single `changeset` array entry.
 
 Note that the `changeset` array can have multiple entries for the same given file.
 
