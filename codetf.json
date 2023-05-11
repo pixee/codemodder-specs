@@ -3,8 +3,8 @@
     "vendor" : "pixee", // org name (required)
     "tool" : "pixee", // tool name (required)
     "version" : "1.0.0", // tool version (required)
-    "commandLine" : "pixee change . --dry-run" // literal command line used to re-create this run (required)
-    "elapsed" : "105024" // how long, in miliseconds, the analysis and report generation took to execute (required)
+    "commandLine" : "pixee change . --dry-run", // literal command line used to re-create this run (required)
+    "elapsed" : "105024", // how long, in miliseconds, the analysis and report generation took to execute (required)
     "directory" : "/tmp/path/to/repository/", // the location on disk of the code directory being scanned (required)
     "sarifs" : [ // the analysis inputs from other tools that are informing the analysis (optional)
       {
@@ -28,7 +28,7 @@
         "properties" : { }, // An arbitrary set of vendor-specific properties to help storytelling (optional)
         "failedFiles" : [ // a set of files that failed to be scanned or failed to be changed (optional)
           "/foo/failed.java"
-        ]
+        ],
         "changeset" : [ // the changes for a given codemod (required)
             {
                 "path" : "src/main/java/org/acme/MyDeserializerAction.java", // the relative path of the file, which when combined with the configuration directory, gives the fully qualified path (required)
