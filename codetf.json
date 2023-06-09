@@ -26,12 +26,12 @@
             }
         ],
         "properties" : { }, // An arbitrary set of vendor-specific properties to help storytelling (optional)
-        "failedFiles" : [ // a set of files that failed to be scanned or failed to be changed (optional)
-          "/foo/failed.java"
+        "failedFiles" : [ // a set of file paths (relative to the directory) for files that the tool failed to parse or transform (optional)
+          "foo/failed.java"
         ],
         "changeset" : [ // the changes for a given codemod (required)
             {
-                "path" : "src/main/java/org/acme/MyDeserializerAction.java", // the relative path of the file, which when combined with the configuration directory, gives the fully qualified path (required)
+                "path" : "src/main/java/org/acme/MyDeserializerAction.java", // the path (relative to the directory) of the file, which when combined with the configuration directory, gives the fully qualified path (required)
                 "diff" : "... udiff text...", // the unified diff format of the changes made to the file (required)
                 "changes" : [
                     {
