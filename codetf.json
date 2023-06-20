@@ -61,7 +61,7 @@
      },
      {
         "codemod" : "pixee:java/session-timeout",
-        "summary" : "",
+        "summary" : "Shrank the session timeout to prevent session-riding attacks",
         "description" : "Lengthier description about session timeouts, risks, etc...",
         "references" : [
             {
