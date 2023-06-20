@@ -13,7 +13,7 @@
       }
     ]
   },
-  "results" : [ // the results for codemods that made changes or require interactions during analysis, and can be empty (required)
+  "results" : [ // the results for codemods that made changes during analysis, and can be empty (required)
      {
         "codemod" : "pixee:java/deserialization", // an ID that maps to a vendor's knowledgebase
         "summary" : "Hardened object deserialization calls against attack", // a phrase describing the changes made (required)
