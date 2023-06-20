@@ -75,7 +75,7 @@
              "path" : "src/main/resources/WEB-INF/web.xml", // the path to the file we have a question about
              "line" : "54", // the line number we want to change
              "column" : "9", // the column we want to change
-             "proposedDiff" : "... proposed code diff here...", // the udiff format of the draft fix we are issuing
+             "proposedDiff" : "... proposed code diff here...", // the udiff format of the draft fix we could envision issuing
              "values" : [
                {
                   "question" : "What would you like the session timeout to be (in minutes)?",
