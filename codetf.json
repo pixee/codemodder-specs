@@ -76,13 +76,13 @@
              "line" : "54", // the line number we want to change
              "column" : "9", // the column we want to change
              "proposedDiff" : "... proposed code diff here...", // the udiff format of the draft fix we could envision issuing
-             "values" : [
+             "values" : [ // the values we would need from the user in order to perform the change
                {
-                  "question" : "What would you like the session timeout to be (in minutes)?",
-                  "name" : "timeout",
-                  "type" : "integer",
-                  "description" : "a non-negative integer that represents the Jakarta session timeout for a web.xml file",
-                  "proposedValue" : "30"
+                  "question" : "What would you like the session timeout to be (in minutes)?", // a natural language question we want to pose to the user
+                  "name" : "timeout", // the name of the value we are asking for
+                  "type" : "integer", // the data type (one of integer, boolean, string)
+                  "description" : "a non-negative integer that represents the Jakarta session timeout for a web.xml file", // a description of the value
+                  "proposedValue" : "30" // what we think a sane default value would be in order to anchor the user towards reasonable values if they need it
                }
              ]
            }
