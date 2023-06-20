@@ -13,8 +13,7 @@
       }
     ]
   },
-  
-  "results" : [ // the results for codemods that made changes during analysis, and can be empty (required)
+  "results" : [ // the results for codemods that made changes or require interactions during analysis, and can be empty (required)
      {
         "codemod" : "pixee:java/deserialization", // an ID that maps to a vendor's knowledgebase
         "summary" : "Hardened object deserialization calls against attack", // a phrase describing the changes made (required)
@@ -59,6 +58,34 @@
                 ]   
             }
         ]
-     }
+     },
+     {
+        "codemod" : "pixee:java/session-timeout",
+        "summary" : "",
+        "description" : "Lengthier description about deserialization risks, protection s, etc...",
+        "references" : [
+            {
+                "url" : "https://owasp.org/www-community/Session_Timeout",
+                "description" : "OWASP Session Timeout" 
+            }
+        ],
+        "changeset" : [], // no changes were possible
+        "moreInformationNeeded" : [ // however, there were places where some more information could help make more chnaages
+           {
+             "path" : "src/main/resources/WEB-INF/web.xml", // the path to the file we have a question about
+             "line" : "54", // the line number we want to change
+             "column" : "9", // the column we want to change
+             "proposedDiff" : "... proposed code diff here...", // the udiff format of the draft fix we are issuing
+             "values" : [
+               {
+                  "question" : "What would you like the session timeout to be (in minutes)?",
+                  "name" : "timeout",
+                  "type" : "integer",
+                  "description" : "a non-negative integer that represents the Jakarta session timeout for a web.xml file",
+                  "proposedValue" : "30"
+               }
+             ]
+           }
+        ]
   ]
 }
