@@ -17,7 +17,7 @@
      {
         "codemod" : "pixee:java/deserialization", // an ID that maps to a vendor's knowledgebase
         "summary" : "Hardened object deserialization calls against attack", // a phrase describing the changes made (required)
-        "description" : "Lengthier description about deserialization risks, protection s, etc...", // (required)
+        "description" : "Lengthier description about deserialization risks, protections, etc...", // (required)
         "references" : [ // set of further reading for understanding the issue or changes (optional)
             {
                 "url" : "https://www.oracle.com/technetwork/java/seccodeguide-139067.html#8", // the url (required)
@@ -62,7 +62,7 @@
      {
         "codemod" : "pixee:java/session-timeout",
         "summary" : "",
-        "description" : "Lengthier description about deserialization risks, protection s, etc...",
+        "description" : "Lengthier description about session timeouts, risks, etc...",
         "references" : [
             {
                 "url" : "https://owasp.org/www-community/Session_Timeout",
