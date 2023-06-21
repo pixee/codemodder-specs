@@ -82,8 +82,8 @@
                     {
                       "question" : "What would you like the session timeout to be (in minutes)?", // a natural language question we want to pose to the user (required)
                       "name" : "timeout", // the name of the value we are asking for (required)
-                      "type" : "integer", // the data type (one of integer, boolean, string, string default, required)
-                      "description" : "a non-negative integer that represents the Jakarta session timeout for a web.xml file", // a description of the value (required)
+                      "type" : "number", // the data type (one of number, boolean, string, string default, required)
+                      "label" : "a non-negative integer that represents the Jakarta session timeout for a web.xml file", // a description of the value (optional)
                       "defaultValue" : "30" // what we think a sane default value would be in order to anchor the user towards reasonable values if they need it (required)
                     }
                   ]
