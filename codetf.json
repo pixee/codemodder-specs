@@ -84,7 +84,7 @@
                       "name" : "timeout", // the name of the value we are asking for
                       "type" : "integer", // the data type (one of integer, boolean, string)
                       "description" : "a non-negative integer that represents the Jakarta session timeout for a web.xml file", // a description of the value
-                      "proposedValue" : "30" // what we think a sane default value would be in order to anchor the user towards reasonable values if they need it
+                      "defaultValue" : "30" // what we think a sane default value would be in order to anchor the user towards reasonable values if they need it
                     }
                   ]
                 }
