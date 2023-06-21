@@ -80,11 +80,11 @@
                   "description" : "Modified the session timeout to be a more safe value",
                   "parameters" : [ // the values we would need from the user in order to customize the change
                     {
-                      "question" : "What would you like the session timeout to be (in minutes)?", // a natural language question we want to pose to the user
-                      "name" : "timeout", // the name of the value we are asking for
-                      "type" : "integer", // the data type (one of integer, boolean, string)
-                      "description" : "a non-negative integer that represents the Jakarta session timeout for a web.xml file", // a description of the value
-                      "defaultValue" : "30" // what we think a sane default value would be in order to anchor the user towards reasonable values if they need it
+                      "question" : "What would you like the session timeout to be (in minutes)?", // a natural language question we want to pose to the user (required)
+                      "name" : "timeout", // the name of the value we are asking for (required)
+                      "type" : "integer", // the data type (one of integer, boolean, string, string default, required)
+                      "description" : "a non-negative integer that represents the Jakarta session timeout for a web.xml file", // a description of the value (required)
+                      "defaultValue" : "30" // what we think a sane default value would be in order to anchor the user towards reasonable values if they need it (required)
                     }
                   ]
                 }
