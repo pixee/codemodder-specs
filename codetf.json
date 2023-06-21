@@ -13,6 +13,7 @@
       }
     ]
   },
+  
   "results" : [ // the results for codemods that made changes during analysis, and can be empty (required)
      {
         "codemod" : "pixee:java/deserialization", // an ID that maps to a vendor's knowledgebase
@@ -77,7 +78,7 @@
                 {
                   "lineNumber" : "153", 
                   "description" : "Modified the session timeout to be a more safe value",
-                  "customizations" : [ // the values we would need from the user in order to customize the change
+                  "parameters" : [ // the values we would need from the user in order to customize the change
                     {
                       "question" : "What would you like the session timeout to be (in minutes)?", // a natural language question we want to pose to the user
                       "name" : "timeout", // the name of the value we are asking for
