@@ -5,7 +5,6 @@
     "version" : "1.0.0", // tool version (required)
     "commandLine" : "pixee change . --dry-run", // literal command line used to re-create this run (required)
     "elapsed" : "105024", // how long, in miliseconds, the analysis took to execute (required)
-    "confidence" : "high", // the confidence of the change being safe, effective in its goals (one of low, medium or high, default high) (optional)
     "directory" : "/tmp/path/to/repository/", // the location on disk of the code directory being scanned (required)
     "sarifs" : [ // the analysis inputs from other tools that are informing the analysis (optional)
       {
@@ -20,6 +19,11 @@
         "codemod" : "pixee:java/deserialization", // an ID that maps to a vendor's knowledgebase
         "summary" : "Hardened object deserialization calls against attack", // a phrase describing the changes made (required)
         "description" : "Lengthier description about deserialization risks, protections, etc...", // (required)
+        "confidence" : { // the confidence of the change (all default to medium) (optional)
+          "warranted" : "medium", // default medium
+          "safe" : "high", // default medium
+          "effective" : "medium" // default medium
+        }
         "references" : [ // set of further reading for understanding the issue or changes (optional)
             {
                 "url" : "https://www.oracle.com/technetwork/java/seccodeguide-139067.html#8", // the url (required)
@@ -93,5 +97,5 @@
         }
       ]
     }
-  ]
 }
+  ]
