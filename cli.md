@@ -14,7 +14,8 @@ To guarantee a consistent user experience when using codemodder codemods, we off
 | --dry-run         | do everything except make changes to files|
 | --codemod-include | comma-separated set of codemod ID(s) to include|
 | --codemod-exclude | comma-separated set of codemod ID(s) to exclude|
-| --verbose         | print more to stdout|
+| --verbose         | print more log messages|
+| --log-format      | human (default), or json|
 | --version         | print the version of the codemodder framework, then exit|
 | --parameter       | a parameter for individual codemod (can provide multiple)|
 
@@ -49,7 +50,7 @@ The `executable` could involve multiple command line tokens (e.g., `npm run` or 
 
 ## Console output
 
-The output should use `stdout` to report its findings. It’s currently left unspecified what that output should be. However, care should be taken not to report ncurses-style (like progress bars) unless the codemodder framework can detect it's execution context is inside a user's console.
+The output is specified in [logging](logging.md).
 
 ## Exit codes
 
