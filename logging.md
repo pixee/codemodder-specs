@@ -4,7 +4,7 @@ This specification dictates logging requirements for codemodder frameworks. Fram
 
 ## Output format
 
-The `--log-format` parameter tells the framework whether the output should be human readable by specifying `human` (which is the default) or `json`, which causes each message to be logged as its own self-contained JSON object.
+The `--log-format` parameter tells the framework whether the output should be human readable by specifying `human` (which is the default) or `json`, which causes each message to be logged as its own self-contained JSON object. This structured logging will be beneficial for downstream tooling that wants to parse, query or programmatically act on codemod output.
 
 ### `human` output
 
@@ -15,7 +15,7 @@ $ ./run-my-codemod.sh (...) /my/project
 codemodder: java/1.2
 ```
 
-Notice there is very little context for the log message. The log message doesn't show the timestamp, origin, thread, or any other contextual metadata. We believe CLI users would prefer a very simple, undecorated set of messages.
+Notice there is very little context for the log message. The log message doesn't show the log level, timestamp, origin, thread, or any other contextual metadata. We believe CLI users would prefer a very simple, undecorated set of messages.
 
 ### `json` output
 
