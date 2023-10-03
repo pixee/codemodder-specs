@@ -51,7 +51,7 @@ We take inspiration from YAML as a format for designing log messages. Outputting
 The following example output shows all the required messages when running without `--verbose`. 
 
 ```
-$ ./run-codemodder-codemod.sh --verbose -o /tmp/my_project.codetf /tmp/my_project
+$ ./run-codemodder-codemod.sh -o /tmp/my_project.codetf /tmp/my_project
 codemodder: javascript/1.2
 
 [scanning]
@@ -87,7 +87,22 @@ failed:
   - /tmp/my_project/file_c
 changes:
   - /tmp/my_project/file_d:57,59
+    diff:
+      --- frokm.txt   2015-03-17 04:34:47.076997087 -0430
+      +++ to.txt      2015-03-17 04:35:27.872996388 -0430
+      @@ -1,2 +1,2 @@
+       a
+      -b
+      +c
+  
   - /tmp/my_project/file_e:194
+    diff:
+      --- frokm.txt   2015-03-17 04:34:47.076997087 -0430
+      +++ to.txt      2015-03-17 04:35:27.872996388 -0430
+      @@ -1,2 +1,2 @@
+       a
+      -b
+      +c
 
 codemod: pixee:javascript/secure-random
 scanned: 100 files...
@@ -99,6 +114,13 @@ failed:
   - /tmp/my_project/file_c
 changes:
   - /tmp/my_project/file_d:81
+    diff:
+      --- frokm.txt   2015-03-17 04:34:47.076997087 -0430
+      +++ to.txt      2015-03-17 04:35:27.872996388 -0430
+      @@ -1,2 +1,2 @@
+       a
+      -b
+      +c
 
 [report]
 scanned: 356 files
