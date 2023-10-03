@@ -38,7 +38,7 @@ The `--verbose` flag tells the codemodder framework to emit all log messages, re
 
 ## Output streams
 
-Generally, logs are expected to go to `stdout`. When the user specificies that the output format should be `human`, or the default case where no output format is specified, it's preferred that error messages be emitted to `stderr`.
+Generally, logs are expected to go to `stdout`. When the user specificies that the output format should be `human`, including the default case where no output format is specified, it's preferred that error messages be emitted to `stderr`.
 
 ## Message Design
 
