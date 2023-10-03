@@ -1,10 +1,10 @@
 # Logging
 
-This specification dictates logging requirements for codemodder frameworks. This warrants a specification so that the frameworks can align on a general design, some important messages to log, and formats. This way, users get a relatively consistent experience, design problems are solved once, and downstream tooling can make assumptions about expected output.
+This specification dictates logging requirements for codemodder frameworks. Fameworks need to align on a general design, some important messages to log, and formats. This way, users get a relatively consistent experience, design problems are solved once and only once, and downstream tooling can make assumptions about expected output.
 
 # Output format
 
-The `--log-format` parameter tells the framework whether the output should be human readable by specifying `human` (which is the default) or `json`.
+The `--log-format` parameter tells the framework whether the output should be human readable by specifying `human` (which is the default) or `json`, which causes each message to be logged as its own self-contained JSON object.
 
 ## `human` output
 
@@ -18,12 +18,19 @@ codemodder: java/1.2
 Notice there is very little context for the log message. The log message doesn't show the timestamp, origin, thread, or any other contextual metadata. We believe CLI users would prefer a very simple, undecorated set of messages.
 
 ## `json` output
+
 For `json` output, we expect a message like the following:
+
 ```
 $ ./run-my-codemod.sh (...) /my/project
 { "level" : "INFO", "message" : "[starting]" }
 { "level" : "INFO", "message" : "codemodder: java/1.2" }
 ```
+
+The level should be one of `DEBUG`, `INFO`, or `ERROR`. In general:
+ - `ERROR` messages should contain unexpected errors
+ - `INFO` should contain information about changes
+ - `DEBUG` should contain diagnostic or forensic information
 
 # Verbosity
 
