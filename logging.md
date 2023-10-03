@@ -46,10 +46,27 @@ We take inspiration from YAML as a format for designing log messages. Outputting
 
 ## Messages
 
-The following example output shows all the required messages. Frameworks can emit more messages, but the following messages serve as a reasonable first milestone or baseline for good-enough logging to support users and downstream tooling. Most of these messages feel self-explanatory, but the specification can go into more detail over time as actual elicits a clearer vision of what's important.
+### Without `--verbose`
+
+The following example output shows all the required messages when running without `--verbose`. 
 
 ```
-$ ./run-codemodder-codemod.sh -o /tmp/my_project.codetf /tmp/my_project
+$ ./run-codemodder-codemod.sh --verbose -o /tmp/my_project.codetf /tmp/my_project
+codemodder: javascript/1.2
+
+[scanning]
+codemod: pixee:javascript/limit-readline
+changed:
+  - /tmp/my_project/file_d:57,59
+  - /tmp/my_project/file_e:194
+```
+
+### With `--verbose`
+
+The following example output shows all the required messages when running with `--verbose`. Frameworks can emit more messages, but the following messages serve as a reasonable first milestone or baseline for good-enough logging to support users and downstream tooling. Most of these messages feel self-explanatory, but the specification can go into more detail over time as actual elicits a clearer vision of what's important.
+
+```
+$ ./run-codemodder-codemod.sh --verbose -o /tmp/my_project.codetf /tmp/my_project
 
 [startup] 
 codemodder: javascript/1.2
