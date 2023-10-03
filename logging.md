@@ -1,6 +1,6 @@
 # Logging
 
-This specification dictates logging requirements for codemodder frameworks. Fameworks need to align on a general design, some important messages to log, and formats. This way, users get a relatively consistent experience, design problems are solved once and only once, and downstream tooling can make assumptions about expected output.
+This specification dictates logging requirements for codemodder frameworks. Frameworks need to align on a general design, some important messages to log, and output formats. This way, users get a relatively consistent experience, design problems are solved once and only once, and downstream tooling can make assumptions about expected output.
 
 ## Output format
 
