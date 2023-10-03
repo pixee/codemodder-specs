@@ -15,7 +15,7 @@ $ ./run-my-codemod.sh (...) /my/project
 codemodder: java/1.2
 ```
 
-Notice there is very little context for the log message. The log message doesn't show the timestamp, origin, thread, or any other contextual metadata. We believe CLI users would prefer a very simple, undecorated set of messages.
+Notice there is very little boilerplate for the log message. The log message doesn't show the timestamp, origin, thread, or any other contextual metadata. We believe CLI users would prefer a very simple, undecorated set of messages.
 
 ### `json` output
 
