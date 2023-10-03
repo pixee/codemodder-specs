@@ -35,16 +35,16 @@ Generally, logs are expected to go to `stdout`. When the user specificies that t
 
 # Message Design
 
-We take inspiration from YAML as a format for designing log messages. Thinking in YAML gives some helpful boundaries and strategies for output some familiar structure.
+We take inspiration from YAML as a format for designing log messages. Outputting in a YAML-like structure gives us some helpful strategies for how to visualize familiar structures, like lists of files, section breaks, and displaying simple key-value pairs.
 
-# Required Messages
+# Messages
 
-The following messages show 
+The following example output shows all the required messages. Frameworks can emit more messages, but the following messages serve as a reasonable first milestone or baseline for good-enough logging to support users and downstream tooling. Most of these messages feel self-explanatory, but the specification can go into more detail over time as actual elicits a clearer vision of what's important.
 
 ```
 $ ./run-codemodder-codemod.sh -o /tmp/my_project.codetf /tmp/my_project
 
-[starting] 
+[startup] 
 codemodder: javascript/1.2
 
 [setup]
