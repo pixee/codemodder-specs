@@ -15,7 +15,7 @@ $ ./run-my-codemod.sh (...) /my/project
 codemodder: java/1.2
 ```
 
-Notice there is very little context for the log message. The log message doesn't show the log level, timestamp, origin, thread, or any other contextual metadata. We believe CLI users would prefer a very simple, undecorated set of messages.
+Notice there is very little boilerplate context for the log message. The log message doesn't show the log level, timestamp, origin, thread, or any other contextual metadata. We believe CLI users would prefer a very simple, undecorated set of messages.
 
 ### `json` output
 
@@ -38,7 +38,7 @@ The `--verbose` flag tells the codemodder framework to emit all log messages, re
 
 ## Output streams
 
-Generally, logs are expected to go to `stdout`. When the user specificies that the output format should be `human`, or the default case where no output format is specified, it's preferred that error messages be emitted to `stderr`.
+Generally, logs are expected to go to `stdout`. When the user specificies that the output format should be `human`, including the default case where no output format is specified, it's preferred that error messages be emitted to `stderr`.
 
 ## Message Design
 
