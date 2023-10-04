@@ -85,7 +85,7 @@ failed:
   - /tmp/my_project/file_a
   - /tmp/my_project/file_b
   - /tmp/my_project/file_c
-changes:
+changed:
   - /tmp/my_project/file_d:57,59
     diff:
       --- frokm.txt   2015-03-17 04:34:47.076997087 -0430
@@ -112,7 +112,7 @@ failed:
   - /tmp/my_project/file_a
   - /tmp/my_project/file_b
   - /tmp/my_project/file_c
-changes:
+changed:
   - /tmp/my_project/file_d:81
     diff:
       --- frokm.txt   2015-03-17 04:34:47.076997087 -0430
@@ -125,7 +125,7 @@ changes:
 [report]
 scanned: 356 files
 failed: 6 files (3 unique)
-changed: 3 changes across 3 files
-reported_to: /tmp/my_project.codetf
+changed: 3 files (3 unique)
+report file: /tmp/my_project.codetf
 elapsed: 14050ms 
 ```
