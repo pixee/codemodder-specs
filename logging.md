@@ -55,7 +55,7 @@ $ ./run-codemodder-codemod.sh -o /tmp/my_project.codetf /tmp/my_project
 codemodder: javascript/1.2
 
 [scanning]
-codemod: pixee:javascript/limit-readline
+running codemod: pixee:javascript/limit-readline
 changed:
   - /tmp/my_project/file_d:57,59
   - /tmp/my_project/file_e:194
