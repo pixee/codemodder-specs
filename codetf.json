@@ -3,6 +3,7 @@
     "vendor" : "pixee", // org name (required)
     "tool" : "pixee", // tool name (required)
     "version" : "1.0.0", // tool version (required)
+    "projectName" : "AcmeProject", // project name (optional)
     "commandLine" : "pixee change . --dry-run", // literal command line used to re-create this run (required)
     "elapsed" : "105024", // how long, in miliseconds, the analysis took to execute (required)
     "directory" : "/tmp/path/to/repository/", // the location on disk of the code directory being scanned (required)
