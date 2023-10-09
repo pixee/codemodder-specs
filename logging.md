@@ -40,7 +40,7 @@ The `line` field should be the line in the code file that is generating the mess
 
 Note: If the `--project-name` was specified in the [CLI](cld.md) arguments, it should be provided in a `project_name` key.
 
-Frameworks can log extra, language-specific keys as desired as long as they don't conflict. 
+Frameworks can log extra, language-specific keys as desired as long as they don't conflict with standard keys.
 
 ## Verbosity
 
