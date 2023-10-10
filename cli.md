@@ -16,6 +16,7 @@ To guarantee a consistent user experience when using codemodder codemods, we off
 | --codemod-exclude | comma-separated set of codemod ID(s) to exclude|
 | --verbose         | print more log messages|
 | --log-format      | human (default), or json|
+| --project-name    | a descriptive and ideally unique name for the project being scanned to capture in reporting |
 | --version         | print the version of the codemodder framework, then exit|
 | --parameter       | a parameter for individual codemod (can provide multiple)|
 

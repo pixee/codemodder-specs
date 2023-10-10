@@ -6,3 +6,4 @@ This repository is intended to hold those specifications and supporting guidance
 
 * [Code Transformation Format (CodeTF)](codetf.md)
 * [CLI Parameters](cli.md)
+* [Logging](logging.md)

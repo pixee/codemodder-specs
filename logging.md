@@ -23,14 +23,24 @@ For `json` output, we expect a message like the following:
 
 ```
 $ ./run-my-codemod.sh (...) /my/project
-{ "level" : "INFO", "message" : "[starting]" }
-{ "level" : "INFO", "message" : "codemodder: java/1.2" }
+{ "level" : "INFO", "file" : "Startup.java", "line" : "21", "message" : "[starting]" }
+{ "level" : "INFO", "file" : "Startup.java", "line" : "27", "message" : "codemodder: java/1.2" }
 ```
 
-The level should be one of `DEBUG`, `INFO`, or `ERROR`. In general:
+The `message` field represents the text of the log message. 
+
+The `level` field should be one of `DEBUG`, `INFO`, or `ERROR`. In general:
  - `ERROR` messages should contain unexpected errors
  - `INFO` should contain information about changes
  - `DEBUG` should contain diagnostic or forensic information
+
+The `file` field should be the code file that is generating the message.
+
+The `line` field should be the line in the code file that is generating the message.
+
+Note: If the `--project-name` was specified in the [CLI](cld.md) arguments, it should be provided in a `project_name` key.
+
+Frameworks can log extra, language-specific keys as desired as long as they don't conflict with standard keys.
 
 ## Verbosity
 
