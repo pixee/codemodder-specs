@@ -19,6 +19,7 @@ To guarantee a consistent user experience when using codemodder codemods, we off
 | --project-name    | a descriptive and ideally unique name for the project being scanned to capture in reporting |
 | --version         | print the version of the codemodder framework, then exit|
 | --parameter       | a parameter for individual codemod (can provide multiple)|
+| --max-workers     | specify the maximum number of workers (threads) to use for parallel processing
 
 ## Specifying parameters
 The codemods must run in the given format:
@@ -52,6 +53,7 @@ The `executable` could involve multiple command line tokens (e.g., `npm run` or 
         - **“line”:** the codemod to which the parameter applies (optional — assumed “all” if not present)
         - **“name”:** the of the parameter (required)
         - **“value”:** the value of the parameter (required)
+- The `--max-workers` argument specifies the maximum number of workers to use for parallel codemod processing. For most codemodders "workers" will be threads. When this parameter is not explicitly provided codemodders should rely on the default behavior of the underlying threading/concurrency provider for their language. Most providers will use reasonable defaults that automatically scale to system resources.
 
 ## Console output
 
