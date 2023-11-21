@@ -9,6 +9,7 @@ To guarantee a consistent user experience when using codemodder codemods, we off
 | --output          | the output file to produce (required) |
 | --output-format   | the format for the data output file (codetf or diff) |
 | --sarif           | comma-separated set of path(s) to SARIF file(s) to feed to the codemods |
+| --sonar-issues-json-file | the path to a file containing output from Sonar's Issues API |
 | --path-include    | comma-separated, exact-match, set of UNIX glob patterns to include. In the case of a conflict with excludes, excludes are given precedence.|
 | --path-exclude    | comma-separated, exact-match, set of UNIX glob patterns to exclude. In the case of a conflict with includes, excludes are given precedence.|
 | --dry-run         | do everything except make changes to files|
