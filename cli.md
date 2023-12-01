@@ -5,7 +5,8 @@ To guarantee a consistent user experience when using codemodder codemods, we off
 | Parameter | Description |
 | --------- | ----------- |
 | --help            | print help, then exit  |
-| --list            | print codemod(s) metadata, then exit |
+| --list            | print codemod names, then exit |
+| --describe        | print detailed codemod metadata, then exit |
 | --output          | the output file to produce (required) |
 | --output-format   | the format for the data output file (codetf or diff) |
 | --sarif           | comma-separated set of path(s) to SARIF file(s) to feed to the codemods |
@@ -32,9 +33,9 @@ The codemods must run in the given format:
 The `executable` could involve multiple command line tokens (e.g., `npm run` or `java -jar my-codemod.jar`) in order to invoke the executable.
 
 ## Implementation details
-- Passing one of `--help`, `--list` and `--version` will cause the given action to be run, then exit
-- You can only run one of `--help`, `--list`, `--version`. Running multiple will cause an error and should show help like any other argument error
-- The only required fields are `--output` and `<project directory>`. However, these fields are not required if running either `--help`, `--list` or `--version`.
+- Passing one of `--help`, `--list`, `--describe`, and `--version` will cause the given action to be run, then exit
+- You can only run one of `--help`, `--list`, `--describe`, `--version`. Running multiple will cause an error and should show help like any other argument error
+- The only required fields are `--output` and `<project directory>`. However, these fields are not required if running either `--help`, `--list`, `--describe`, or `--version`.
 - You cannot legally specify any argument more than one time
 - All codemod rules are loaded by default unless `--codemode-include` specifies a list.  `-codemode-exclude` works off all default codemods.
 - Specifying a `--codemod-include`or `--codemod-exclude`  that references a non-existent codemod will result in an error
@@ -55,6 +56,24 @@ The `executable` could involve multiple command line tokens (e.g., `npm run` or 
         - **“name”:** the of the parameter (required)
         - **“value”:** the value of the parameter (required)
 - The `--max-workers` argument specifies the maximum number of workers to use for parallel codemod processing. For most codemodders "workers" will be threads. When this parameter is not explicitly provided codemodders should rely on the default behavior of the underlying threading/concurrency provider for their language. Most providers will use reasonable defaults that automatically scale to system resources.
+- The `--describe` argument causes detailed codemod metadata to be printed to `stdout` as a JSON blob before exiting. This is intended to be used by upstream tooling to collect detailed metadata about available codemods. This argument honors the `--codemod-include` and `--codemod-exclude` flags to determine which codemods should be included in the output. The format of the JSON mirrors the `results` section of the codetf format, except each entry only includes the following fields: `codemod`, `summary`, `description`, and `references`. For example, the output might look like this:
+```json
+{
+  "results": [
+    {
+      "codemod": "pixee:java/fix-my-java",
+      "summary": "Fixes the Java",
+      "description": "A longer detailed description of how to fix Java...",
+      "references": [
+        {
+          "url": "https://www.java.com",
+          "description": "Everyone's favorite Java website"
+        }
+      ]
+    }
+  ]
+}
+```
 
 ## Console output
 
