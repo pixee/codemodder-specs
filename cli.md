@@ -7,7 +7,7 @@ To guarantee a consistent user experience when using codemodder codemods, we off
 | --help            | print help, then exit  |
 | --list            | print codemod names, then exit |
 | --describe        | print detailed codemod metadata, then exit |
-| --output          | the output file to produce (required) |
+| --output          | the output file to produce (optional) |
 | --output-format   | the format for the data output file (codetf or diff) |
 | --sarif           | comma-separated set of path(s) to SARIF file(s) to feed to the codemods |
 | --sonar-issues-json | the path to a file containing output from Sonar's Issues API |
@@ -35,8 +35,9 @@ The `executable` could involve multiple command line tokens (e.g., `npm run` or 
 ## Implementation details
 - Passing one of `--help`, `--list`, `--describe`, and `--version` will cause the given action to be run, then exit
 - You can only run one of `--help`, `--list`, `--describe`, `--version`. Running multiple will cause an error and should show help like any other argument error
-- The only required fields are `--output` and `<project directory>`. However, these fields are not required if running either `--help`, `--list`, `--describe`, or `--version`.
+- The only required field is `<project directory>`. However, this field is not required if running either `--help`, `--list`, `--describe`, or `--version`.
 - You cannot legally specify any argument more than one time
+- If `--output` is given, it indicates the path where a codetf or diff file will be created (depending on the value of `--output-format`). Otherwise no output file is generated
 - All codemod rules are loaded by default unless `--codemode-include` specifies a list.  `-codemode-exclude` works off all default codemods.
 - Specifying a `--codemod-include`or `--codemod-exclude`  that references a non-existent codemod will result in an error
 - The `--path-include` and `--path-exclude` patterns are interpreted as relative to the given `<project directory>`. In practice this means that the patterns should be joined with the `<project directory>` when used internally and also when passed to external tools.
