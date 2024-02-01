@@ -38,6 +38,7 @@
                     {
                         "lineNumber" : "153", // the "primary" line number that was changed (required)
                         "description" : "Added a call to ObjectInputStream#setObjectFilter() to prevent known malicious gadgets..", // human readable description of a given change (optional)
+                        "diffSide": "right", // "right" or "left". "right" indicates that the lineNumber and description correspond to a position in the new or modified code. "left" indicates these fields correspond to a position in the original code. Descriptions of the change itself should generally use "right", except in cases where the only change is a deletion. In contrast, "left" can be used to describe the original problem being fixed. (required)
                         "properties" : { }, // An arbitrary set of vendor-specific properties to help storytelling (optional)
                         "packageActions" : [ // the package actions that were needed to support changes to the file, even if it is already there and injection wasn't necessary (optional)
                             {   
@@ -55,7 +56,8 @@
                 "changes" : [
                     {
                         "lineNumber" : "155",
-                        "description" : "Added java-security-toolkit for MyDeserializationAction.java"
+                        "description" : "Added java-security-toolkit for MyDeserializationAction.java",
+                        "diffSide": "right"
                     }
                 ]   
             }
@@ -79,6 +81,7 @@
                 {
                   "lineNumber" : "153", 
                   "description" : "Modified the session timeout to be a more safe value",
+                  "diffSide": "right",
                   "parameters" : [ // the values we would need from the user in order to customize the change
                     {
                       "question" : "What would you like the session timeout to be (in minutes)?", // a natural language question we want to pose to the user (required)
