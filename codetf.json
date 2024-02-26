@@ -48,8 +48,15 @@
                             }
                         ]
                     }
-                ]
-            }, 
+                ],
+                "remediation" : { // metadata about the tool rule being remediated (optional)
+                    "toolName" : "find-bugs", // the tool name (required)
+                    "toolVersion" : "3.0.1", // the tool version (optional)
+                    "ruleId" : "UNSAFE_DESERIALIZATION", // the rule ID (required)
+                    "resultFile" : "find-sec-bugs.sarif" // the name of the file containing the SARIF or other input (optional)
+                    "resultId" : "1" // a unique identifier (e.g. index) of the result in the result file (optional)
+                }
+            },
             {
                 "path" : "pom.xml",
                 "diff" : "... udiff text...",
