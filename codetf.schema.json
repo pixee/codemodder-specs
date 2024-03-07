@@ -1,0 +1,228 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pixee.ai/codetf.schema.json",
+  "title": "Code Transformation Format (CodeTF)",
+  "description": "A format for representing the results of code transformations",
+  "type": "object",
+
+  "properties": {
+    "run": {
+      "description": "Metadata about the run that produced the results",
+      "$ref": "#/definitions/run"
+    },
+    "results": {
+      "description": "The results of the code transformations that were applied during analysis",
+      "type": "array",
+      "items": { "$ref": "#/definitions/result" },
+      "minItems": 0
+    }
+  },
+
+  "definitions": {
+    "run": {
+      "type": "object",
+      "properties": {
+        "vendor": {
+          "type": "string",
+          "description": "Name of the organization that produced the tool"
+        },
+        "tool": {
+          "type": "string",
+          "description": "Name of the tool that produced the CodeTF results"
+        },
+        "version": {
+          "type": "string",
+          "description": "Version of the tool that produced the CodeTF results"
+        },
+        "projectName": {
+          "type": "string",
+          "description": "Name of the project that was analyzed"
+        },
+        "commandLine": {
+          "type": "string",
+          "description": "The command line used to re-create this run"
+        },
+        "elapsed": {
+          "type": "integer",
+          "description": "How long, in miliseconds, the analysis took to execute"
+        },
+        "directory": {
+          "type": "string",
+          "description": "The location on disk of the code directory being scanned"
+        },
+        "sarifs": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/sarif" }
+        }
+      },
+      "required": ["vendor", "tool", "version", "commandLine", "elapsed", "directory"]
+
+    },
+
+    "result": {
+      "type": "object",
+      "properties": {
+        "codemod": {
+          "type": "string",
+          "description": "ID of the transformation that was applied"
+        },
+        "summary": {
+          "type": "string",
+          "description": "A short phrase describing the changes made"
+        },
+        "description": {
+          "type": "string",
+          "description": "A longer description of the changes made"
+        },
+        "detectionTool": {
+          "description": "Metadata about the tool that detected the issue",
+          "$ref": "#/definitions/detectionTool"
+        },
+        "references": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/reference" }
+        },
+        "properties": {
+          "type": "object",
+          "description": "Vendor-specific properties to help storytelling",
+          "additionalProperties": true
+        },
+        "failedFiles": {
+          "type": "array",
+          "description": "A set of file paths for files that the tool failed to parse or transform",
+          "items": { "type": "string" }
+        },
+        "changeset": {
+          "type": "array",
+          "description": "The changes for a given codemod",
+          "items": { "$ref": "#/definitions/changeset" },
+          "minItems": 0
+        }
+      },
+      "required": ["codemod", "summary", "description", "changeset"]
+    },
+
+    "sarif": {
+      "type": "object",
+      "properties": {
+        "artifact": {
+          "type": "string",
+          "description": "The file containing the SARIF or other input"
+        },
+        "sha1": {
+          "type": "string",
+          "description": "SHA1 hash representing the artifact"
+        }
+      },
+      "required": ["artifact", "sha1"]
+    },
+
+    "reference": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "The URL of the reference"
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the reference"
+        }
+      },
+      "required": ["url"]
+    },
+
+    "changeset": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "The path of the file (relative to the directory) that was changed"
+        },
+        "diff": {
+          "type": "string",
+          "description": "The unified diff format of the changes made to the file"
+        },
+        "changes": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/change" },
+          "minItems": 1
+        }
+      },
+      "required": ["path", "diff", "changes"]
+    },
+
+    "change": {
+      "type": "object",
+      "properties": {
+        "lineNumber": {
+          "type": "integer",
+          "description": "The line number that was changed"
+        },
+        "description": {
+          "type": "string",
+          "description": "A human-readable description of the change"
+        },
+        "diffSide": {
+          "type": "string",
+          "description": "The side of the diff that the change is on. 'right' indicates that the lineNumber and description correspond to a position in the new or modified code. 'left' indicates these fields correspond to a position in the original code. Descriptions of the change itself should generally use 'right', except in cases where the only change is a deletion. In contrast, 'left' can be used to describe the original problem being fixed.",
+          "enum": ["left", "right", "LEFT", "RIGHT"]
+        },
+        "properties": {
+          "type": "object",
+          "description": "Vendor-specific properties to help storytelling",
+          "additionalProperties": true
+        },
+        "packageActions": {
+          "type": "array",
+          "description": "The package actions that were needed to support changes to the file",
+          "items": { "$ref": "#/definitions/packageAction" }
+        }
+      },
+      "required": ["lineNumber", "diffSide"]
+    },
+
+    "packageAction": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "One of 'add' or 'remove'",
+          "enum": ["add", "remove", "ADD", "REMOVE"]
+        },
+        "result": {
+          "type": "string",
+          "description": "One of 'completed', 'failed', or 'skipped'",
+          "enum": ["completed", "failed", "skipped", "COMPLETED", "FAILED", "SKIPPED"]
+        },
+        "package": {
+          "type": "string",
+          "description": "The package that was added or removed"
+        }
+      },
+      "required": ["action", "result", "package"]
+    },
+
+    "detectionTool": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the tool that detected the issue"
+        },
+        "ruleId": {
+          "type": "string",
+          "description": "ID of the tool vendor rule that detected the issue"
+        },
+        "ruleDescription": {
+          "type": "string",
+          "description": "Short description of the tool vendor rule that detected the issue"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["name", "ruleId"]
+    }
+  },
+
+  "required": ["run", "results"]
+}
