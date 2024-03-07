@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   validate:
-    name: Build Package
+    name: Validate Schema
     runs-on: ubuntu-20.04
     timeout-minutes: 5
     steps:
@@ -28,3 +28,20 @@ jobs:
         run: pip install -r scripts/requirements.txt
       - name: Validate schema
         run: ./scripts/validate_schema.py codetf.schema.json
+  test-examples:
+    name: Test CodeTF Examples
+    runs-on: ubuntu-20.04
+    timeout-minutes: 5
+    steps:
+      - name: Set Up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: pip install check-jsonschema
+      - name: Validate PyGoat example
+        run: check-jsonschema --schemafile codetf.schema.json examples/pygoat.codetf.json
+      - name: Validate WebGoat example
+        run: check-jsonschema --schemafile codetf.schema.json examples/pygoat.codetf.json
