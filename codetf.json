@@ -20,6 +20,11 @@
         "codemod" : "pixee:java/deserialization", // an ID that maps to a vendor's knowledgebase
         "summary" : "Hardened object deserialization calls against attack", // a phrase describing the changes made (required)
         "description" : "Lengthier description about deserialization risks, protections, etc...", // (required)
+        "detectionTool": { // metadata about the tool that detected the issue (optional, default assumes codemodder itself)
+            "name": "Name of the tool that detected the issue", (required)
+            "ruleId": "ID of the tool vendor rule that detected the issue", (required)
+            "ruleName": "Name of the tool vendor rule that detected the issue", (required)
+        },
         "references" : [ // set of further reading for understanding the issue or changes (optional)
             {
                 "url" : "https://www.oracle.com/technetwork/java/seccodeguide-139067.html#8", // the url (required)
