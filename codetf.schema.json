@@ -43,7 +43,7 @@
           "description": "The command line used to re-create this run"
         },
         "elapsed": {
-          "type": "integer",
+          "type": ["integer", "string"],
           "description": "How long, in miliseconds, the analysis took to execute"
         },
         "directory": {
@@ -156,7 +156,7 @@
       "type": "object",
       "properties": {
         "lineNumber": {
-          "type": "integer",
+          "type": ["integer", "string"],
           "description": "The line number that was changed"
         },
         "description": {
