@@ -1,0 +1,30 @@
+name: Validate Schema
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Build Package
+    runs-on: ubuntu-20.04
+    timeout-minutes: 5
+    steps:
+      - name: Set Up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+      - name: Validate schema
+        run: ./scripts/validate_schema.py codetf.schema.json
