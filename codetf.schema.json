@@ -210,17 +210,64 @@
           "type": "string",
           "description": "Name of the tool that detected the issue"
         },
-        "ruleId": {
-          "type": "string",
-          "description": "ID of the tool vendor rule that detected the issue"
+        "rule": {
+          "$ref": "#/definitions/detector/rule",
+          "description": "The rule that detected the issue"
         },
-        "ruleDescription": {
-          "type": "string",
-          "description": "Short description of the tool vendor rule that detected the issue"
+        "findings": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/detector/finding" }
         }
       },
       "additionalProperties": true,
-      "required": ["name", "ruleId"]
+      "required": ["name", "rule", "findings"]
+    },
+
+    "detector": {
+      "finding": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "type": "string",
+            "description": "A unique identifier for the finding"
+          },
+          "fixed": {
+            "type": "boolean",
+            "description": "Whether the finding was fixed by the codemod"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason the finding was not fixed"
+          }
+        },
+        "additionalProperties": true,
+        "required": ["guid", "fixed"],
+        "if": {
+          "properties": {
+            "fixed": { "boolean": false }
+          },
+          "required": ["reason"]
+        }
+      },
+      "rule": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The ID of the rule"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the rule"
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the rule"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["id", "name"]
+      }
     }
   },
 
