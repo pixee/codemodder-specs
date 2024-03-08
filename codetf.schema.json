@@ -216,7 +216,8 @@
         },
         "findings": {
           "type": "array",
-          "items": { "$ref": "#/definitions/detector/finding" }
+          "items": { "$ref": "#/definitions/detector/finding" },
+          "maxItems": 20
         }
       },
       "additionalProperties": true,
@@ -227,9 +228,9 @@
       "finding": {
         "type": "object",
         "properties": {
-          "guid": {
+          "id": {
             "type": "string",
-            "description": "A unique identifier for the finding"
+            "description": "A unique identifier for the finding (e.g. 'guid' from SARIF)"
           },
           "fixed": {
             "type": "boolean",
@@ -241,7 +242,7 @@
           }
         },
         "additionalProperties": true,
-        "required": ["guid", "fixed"],
+        "required": ["id", "fixed"],
         "if": {
           "properties": {
             "fixed": { "boolean": false }
@@ -258,11 +259,11 @@
           },
           "name": {
             "type": "string",
-            "description": "The name of the rule"
+            "description": "The name of the rule. Potentially the same as the ID, but more human-readable"
           },
-          "description": {
+          "url": {
             "type": "string",
-            "description": "A description of the rule"
+            "description": "Link to the rule documentation"
           }
         },
         "additionalProperties": false,
