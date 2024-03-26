@@ -34,13 +34,14 @@ The codemods must run in the given format:
 The `executable` could involve multiple command line tokens (e.g., `npm run` or `java -jar my-codemod.jar`) in order to invoke the executable.
 
 ## Implementation details
-- Passing one of `--help`, `--list`, `--describe`, and `--version` will cause the given action to be run, then exit
-- You can only run one of `--help`, `--list`, `--describe`, `--version`. Running multiple will cause an error and should show help like any other argument error
+- Passing one of `--help`, `--list`, `--describe`, and `--version` will cause the given action to be run, then exit.
+- You can only run one of `--help`, `--list`, `--describe`, `--version`. Running multiple will cause an error and should show help like any other argument error.
 - The only required field is `<project directory>`. However, this field is not required if running either `--help`, `--list`, `--describe`, or `--version`.
-- You cannot legally specify any argument more than one time
-- If `--output` is given, it indicates the path where a codetf or diff file will be created (depending on the value of `--output-format`). Otherwise no output file is generated
+- You cannot legally specify any argument more than one time.
+- If `--output` is given, it indicates the path where a codetf or diff file will be created (depending on the value of `--output-format`). Otherwise no output file is generated.
 - All codemod rules are loaded by default unless `--codemode-include` specifies a list.  `-codemode-exclude` works off all default codemods.
-- Specifying a `--codemod-include`or `--codemod-exclude`  that references a non-existent codemod will result in an error
+- Specifying a `--codemod-include` or `--codemod-exclude`  that references a non-existent codemod will result in an error
+- You can specify a simple wildcard for `--codemod-include` and `--codemod-exclude` (e.g., `--codemod-include=acme:*`). If this pattern doesn't match any codemods, a warning will be issued.
 - The `--path-include` and `--path-exclude` patterns are interpreted as relative to the given `<project directory>`. In practice this means that the patterns should be joined with the `<project directory>` when used internally and also when passed to external tools.
 - Codemodders are free to determine reasonable defaults for included and excluded paths. In general, codemodders should attempt to match only relevant source files and to ignore test directories and build artifacts by default. For example, codemodders will generally want to exclude `**/tests/**` by default. This will be interpreted relative to the given `<project directory>`, which means that the effective pattern will be `<project directory>/**/tests/**`.
 - For `--path-include` and `--path-exclude`, specific line numbers can be supplied. For instance, to include `src/Foo.java` but only allow changes found on line 11, you would pass `--path-include src/Foo.java:11`.
