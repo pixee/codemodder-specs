@@ -237,8 +237,33 @@
             "description": "Whether the finding was fixed by the codemod"
           },
           "reason": {
-            "type": "string",
-            "description": "Reason the finding was not fixed"
+            "type": "array",
+            "items": {
+              "failure": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "string",
+                    "description": "A human-readable description of the reason the fix failed at this location"
+                  },
+                  "path": {
+                    "type": "string",
+                    "description": "Path of the file where the fix failed to apply"
+                  },
+                  "line": {
+                    "type": "integer",
+                    "description": "(Optional) line number where the fix failed to apply"
+                  },
+                  "snippet": {
+                    "type": "string",
+                    "description": "(Optional) snippet of code that we failed to fix"
+                  }
+                },
+                "required": ["description", "path"],
+                "additionalProperties": true
+              }
+            },
+            "minItems": 1
           }
         },
         "additionalProperties": true,
