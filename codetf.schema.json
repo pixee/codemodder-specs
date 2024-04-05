@@ -157,29 +157,6 @@
       "required": ["path", "diff", "changes"]
     },
 
-    "unfixed": {
-      "type": "object",
-      "properties": {
-        "path": {
-          "type": "string",
-          "description": "The path of the file (relative to the directory) that was not fixed"
-        },
-        "lineNumber": {
-          "type": "integer",
-          "description": "The line number that was not fixed"
-        },
-        "reason": {
-          "type": "string",
-          "description": "A human-readable description of the reason the file was not fixed"
-        },
-        "finding": {
-          "$ref": "#/definitions/detector/finding",
-          "description": "The finding that was not fixed at this location"
-        }
-      },
-      "required": ["path", "reason", "finding"]
-    },
-
     "change": {
       "type": "object",
       "properties": {
@@ -248,7 +225,7 @@
     },
 
     "detector": {
-      "finding": {
+      "fixedFinding": {
         "type": "object",
         "properties": {
           "id": {
@@ -261,17 +238,19 @@
           }
         },
         "additionalProperties": true,
-        "required": ["id", "rule", "path"]
-      },
-      "fixedFinding": {
-        "$ref": "#/definitions/detector/finding",
-        "additionalProperties": true,
-        // TODO: can we do it this way??
         "required": ["id", "rule"]
       },
       "unfixedFinding": {
-        "$ref": "#/definitions/detector/finding",
+        "type": "object",
         "properties": {
+          "id": {
+            "type": "string",
+            "description": "A unique identifier for the finding (e.g. 'guid' from SARIF)"
+          },
+          "rule": {
+            "$ref": "#/definitions/detector/rule",
+            "description": "The rule that detected the issue"
+          },
           "path": {
             "type": "string",
             "description": "The path of the file (relative to the directory) that was not fixed"
