@@ -97,6 +97,11 @@
           "description": "The changes for a given codemod",
           "items": { "$ref": "#/definitions/changeset" },
           "minItems": 0
+        },
+        "unfixed": {
+          "type": "array",
+          "description": "A set of file paths for files that the tool failed to fix",
+          "items": { "$ref": "#/definitions/unfixedFinding" }
         }
       },
       "required": ["codemod", "summary", "description", "changeset"]
@@ -177,6 +182,10 @@
           "type": "array",
           "description": "The package actions that were needed to support changes to the file",
           "items": { "$ref": "#/definitions/packageAction" }
+        },
+        "finding": {
+          "$ref": "#/definitions/detector/fixedFinding",
+          "description": "The finding that was fixed at this location"
         }
       },
       "required": ["lineNumber", "diffSide"]
@@ -209,46 +218,54 @@
         "name": {
           "type": "string",
           "description": "Name of the tool that detected the issue"
-        },
-        "rule": {
-          "$ref": "#/definitions/detector/rule",
-          "description": "The rule that detected the issue"
-        },
-        "findings": {
-          "type": "array",
-          "items": { "$ref": "#/definitions/detector/finding" },
-          "maxItems": 20
         }
       },
       "additionalProperties": true,
-      "required": ["name", "rule", "findings"]
+      "required": ["name"]
     },
 
     "detector": {
-      "finding": {
+      "fixedFinding": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
             "description": "A unique identifier for the finding (e.g. 'guid' from SARIF)"
           },
-          "fixed": {
-            "type": "boolean",
-            "description": "Whether the finding was fixed by the codemod"
-          },
-          "reason": {
-            "type": "string",
-            "description": "Reason the finding was not fixed"
+          "rule": {
+            "$ref": "#/definitions/detector/rule",
+            "description": "The rule that detected the issue"
           }
         },
         "additionalProperties": true,
-        "required": ["id", "fixed"],
-        "if": {
-          "properties": {
-            "fixed": { "boolean": false }
+        "required": ["id", "rule"]
+      },
+      "unfixedFinding": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "A unique identifier for the finding (e.g. 'guid' from SARIF)"
           },
-          "required": ["reason"]
-        }
+          "rule": {
+            "$ref": "#/definitions/detector/rule",
+            "description": "The rule that detected the issue"
+          },
+          "path": {
+            "type": "string",
+            "description": "The path of the file (relative to the directory) that was not fixed"
+          },
+          "lineNumber": {
+            "type": "integer",
+            "description": "The line number that was not fixed"
+          },
+          "reason": {
+            "type": "string",
+            "description": "A human-readable description of the reason the file was not fixed"
+          }
+        },
+        "additionalProperties": true,
+        "required": ["id", "rule", "path", "reason"]
       },
       "rule": {
         "type": "object",
