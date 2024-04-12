@@ -23,7 +23,8 @@ To guarantee a consistent user experience when using codemodder codemods, we off
 | --project-name    | a descriptive and ideally unique name for the project being scanned to capture in reporting |
 | --version         | print the version of the codemodder framework, then exit|
 | --parameter       | a parameter for individual codemod (can provide multiple)|
-| --max-workers     | specify the maximum number of workers (threads) to use for parallel processing
+| --max-workers     | specify the maximum number of workers (threads) to use for parallel processing|
+| --max-tokens      | specify the maximum number of tokens to use for LLM-enabled processing|
 
 ## Specifying parameters
 The codemods must run in the given format:
@@ -60,6 +61,7 @@ The `executable` could involve multiple command line tokens (e.g., `npm run` or 
         - **“name”:** the of the parameter (required)
         - **“value”:** the value of the parameter (required)
 - The `--max-workers` argument specifies the maximum number of workers to use for parallel codemod processing. For most codemodders "workers" will be threads. When this parameter is not explicitly provided codemodders should rely on the default behavior of the underlying threading/concurrency provider for their language. Most providers will use reasonable defaults that automatically scale to system resources.
+The `--max-tokens` argument specifies the maximum number of tokens to use for LLM-enabled processing. Tokens are defined differently for different LLMs and models. This parameter should be interpreted in terms of whichever underlying model is being used by the codemodder. This parameter applies only to any LLM-enabled codemods and represents the total number of allowed tokens for all codemods in a given invocation. Once this threshold is exceeded, any additional LLM-enabled codemods will be skipped. Where possible codemodders should be proactive about computing token usage before invoking the LLM in order to avoid retroactively exceeding the threshold. Each skipped codemod should emit a warning message to the user. All other codemods should continue to be processed as normal.
 - The `--describe` argument causes detailed codemod metadata to be printed to `stdout` as a JSON blob before exiting. This is intended to be used by upstream tooling to collect detailed metadata about available codemods. This argument honors the `--codemod-include` and `--codemod-exclude` flags to determine which codemods should be included in the output. The format of the JSON mirrors the `results` section of the codetf format, except each entry only includes the following fields: `codemod`, `summary`, `description`, and `references`. For example, the output might look like this:
 ```json
 {
