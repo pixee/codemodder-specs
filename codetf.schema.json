@@ -152,6 +152,10 @@
           "type": "array",
           "items": { "$ref": "#/definitions/change" },
           "minItems": 1
+        },
+        "tokens": {
+          "type": "integer",
+          "description": "The number of LLM tokens used to generate this change"
         }
       },
       "required": ["path", "diff", "changes"]
