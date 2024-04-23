@@ -10,7 +10,7 @@ To guarantee a consistent user experience when using codemodder codemods, we off
 | --output          | the output file to produce (optional) |
 | --output-format   | the format for the data output file (codetf or diff) |
 | --sarif           | comma-separated set of path(s) to SARIF file(s) to feed to the codemods |
-| ----contrast-vulnerabilities-xml | the path to a file containing the result of a call to the Contrast Assess XML export API |
+| --contrast-vulnerabilities-xml | the path to a file containing the result of a call to the Contrast Assess XML export API |
 | --sonar-issues-json | the path to a file containing output from Sonar's Issues API |
 | --sonar-hotspots-json | the path to a file containing output from Sonar's Hotspots API |
 | --defectdojo-findings-json | the path to a file containing output from DefectDojo's v2 Findings API |
