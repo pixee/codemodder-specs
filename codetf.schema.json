@@ -152,6 +152,10 @@
           "type": "array",
           "items": { "$ref": "#/definitions/change" },
           "minItems": 1
+        },
+        "ai": {
+          "description": "Metadata about AI tool used to generate the fix",
+          "$ref": "#/definitions/ai"
         }
       },
       "required": ["path", "diff", "changes"]
@@ -210,6 +214,24 @@
         }
       },
       "required": ["action", "result", "package"]
+    },
+
+    "ai": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "type": "string",
+          "description": "Name of the AI provider used to generate this fix"
+        },
+        "model": {
+          "type": "string",
+          "description": "Name of the model used to generate this fix"
+        },
+        "tokens": {
+          "type": "integer",
+          "description": "Total number of tokens used to generate the fix"
+        }
+      }
     },
 
     "detectionTool": {
