@@ -187,9 +187,10 @@
           "description": "The package actions that were needed to support changes to the file",
           "items": { "$ref": "#/definitions/packageAction" }
         },
-        "finding": {
-          "$ref": "#/definitions/detector/fixedFinding",
-          "description": "The finding that was fixed at this location"
+        "findings": {
+          "type": "array",
+          "description": "List of findings that were fixed at this location",
+          "items": { "$ref": "#/definitions/detector/fixedFinding" }
         }
       },
       "required": ["lineNumber", "diffSide"]
