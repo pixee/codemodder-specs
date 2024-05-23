@@ -96,11 +96,13 @@ Codemods request access to OpenAI models by name, and by default are given acces
 ```bash
 CODEMODDER_AZURE_OPENAI_API_KEY=<KEY>
 CODEMODDER_AZURE_OPENAI_ENDPOINT=<ENDPOINT>
+CODEMODDER_AZURE_OPENAI_API_VERSION=<VERSION>
 CODEMODDER_AZURE_OPENAI_GPT-3_5-TURBO-2024-12-12_DEPLOYMENT=<DEPLOYMENT_NAME>
 CODEMODDER_AZURE_OPENAI_GPT-4-TURBO-2024-04-12_API_DEPLOYMENT=<DEPLOYMENT_NAME>
 ```
 
 - Providing `CODEMODDER_AZURE_OPENAI_API_KEY` without `CODEMODDER_AZURE_OPENAI_ENDPOINT` (and vice versa) will cause a failure on startup.
+- The `CODEMODDER_AZURE_API_VERSION` is optional and codemodders can choose a reasonable default as a fallback. This spec does not intend to be prescriptive about particular fallback versions.
 - If using Azure OpenAI and a codemod requests access to a model for which there is no corresponding `CODEMODDER_AZURE_OPENAI_(MODELNAME)_DEPLOYMENT` variable, the deployment name will be assumed to be the name of the model (e.g., "gpt-4o").
 - If both Azure and OpenAI instructions are available, Azure will be preferred.
 
