@@ -80,6 +80,20 @@ The `executable` could involve multiple command line tokens (e.g., `npm run` or 
 }
 ```
 
+## Configuring Azure OpenAI
+
+Codemods request access to OpenAI models by name, and by default are given access to types that talk to OpenAI directly. It's possible to override the default behavior to use Azure OpenAI in codemods by specifying the following environment variables, like in the following example:
+
+```bash
+CODEMODDER_AZURE_OPENAI_API_KEY=<KEY>
+CODEMODDER_AZURE_OPENAI_ENDPOINT=<ENDPOINT>
+CODEMODDER_AZURE_OPENAI_GPT-3_5-TURBO-2024-12-12_DEPLOYMENT=<DEPLOYMENT_NAME>
+CODEMODDER_AZURE_OPENAI_GPT-4-TURBO-2024-04-12_API_DEPLOYMENT=<DEPLOYMENT_NAME>
+```
+
+- Providing `CODEMODDER_AZURE_OPENAI_API_KEY` without `CODEMODDER_AZURE_OPENAI_ENDPOINT` (and vice versa) will cause a failure on startup.
+- If using Azure OpenAI and a codemod requests access to a model for which there is no corresponding `CODEMODDER_AZURE_OPENAI_(MODELNAME)_DDEPLOYMENT` variable, the codemod should fail immediately with an error message.
+
 ## Console output
 
 The codemodder CLI output is described in [its own specification](logging.md).
