@@ -80,6 +80,30 @@ The `executable` could involve multiple command line tokens (e.g., `npm run` or 
 }
 ```
 
+## Configuring OpenAI
+
+You can optionally allow codemods to access OpenAI by running with the following environment variable during execution:
+```bash
+CODEMODDER_OPENAI_API_KEY=<KEY>
+```
+
+In the case of problems communicating with an AI subprocessor, all other codemods should still run normally.
+
+### Using Azure OpenAI
+
+Codemods request access to OpenAI models by name, and by default are given access to types that talk to OpenAI directly. It's possible to use Azure OpenAI in codemods by specifying the following environment variables:
+
+```bash
+CODEMODDER_AZURE_OPENAI_API_KEY=<KEY>
+CODEMODDER_AZURE_OPENAI_ENDPOINT=<ENDPOINT>
+CODEMODDER_AZURE_OPENAI_GPT-3_5-TURBO-2024-12-12_DEPLOYMENT=<DEPLOYMENT_NAME>
+CODEMODDER_AZURE_OPENAI_GPT-4-TURBO-2024-04-12_API_DEPLOYMENT=<DEPLOYMENT_NAME>
+```
+
+- Providing `CODEMODDER_AZURE_OPENAI_API_KEY` without `CODEMODDER_AZURE_OPENAI_ENDPOINT` (and vice versa) will cause a failure on startup.
+- If using Azure OpenAI and a codemod requests access to a model for which there is no corresponding `CODEMODDER_AZURE_OPENAI_(MODELNAME)_DEPLOYMENT` variable, the deployment name will be assumed to be the name of the model (e.g., "gpt-4o").
+- If both Azure and OpenAI instructions are available, Azure will be preferred.
+
 ## Console output
 
 The codemodder CLI output is described in [its own specification](logging.md).
