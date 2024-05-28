@@ -87,6 +87,21 @@
           "description": "Vendor-specific properties to help storytelling",
           "additionalProperties": true
         },
+        "failure": {
+          "type": "object",
+          "description": "If present indicates that the codemod failed to run",
+          "properties": {
+            "reason": {
+              "type": "string",
+              "description": "A short description of why the codemod failed"
+            },
+            "exception": {
+              "type": "string",
+              "description": "More detailed information about the exception that caused the failure"
+            }
+          },
+          "required": ["reason"]
+        },
         "failedFiles": {
           "type": "array",
           "description": "A set of file paths for files that the tool failed to parse or transform",
