@@ -6,7 +6,7 @@ This open format describes code changes or suggestions made by an automated tool
 
 # The specification JSON
 
-The [specification](codetf.json) is immature right now, only existing as a marked-up JSON file instead of a proper JSON schema. It's also not independently versioned outside of langauge-specific bindings (e.g., [Java binding](https://github.com/pixee/codetf-java-bindings)). We are avoiding more investment in ceremony, versioning, governance, etc., until we feel it has reached a more stable footing. Following [SARIF](https://docs.oasis-open.org/sarif/sarif/v2.1.0/csprd01/sarif-v2.1.0-csprd01.html) stylistically as a long term goal makes sense, not only because it's a successful standard, but also because our results will be closely linked with SARIF, so we could have many users, consumers, and implementors in common.
+The [specification](codetf.schema.json) is expressed in terms of [JSON Schema](https://json-schema.org/). The schema is currently not versioned. We are avoiding investment in ceremony, versioning, governance, etc., until we feel it has reached a more stable footing. Following [SARIF](https://docs.oasis-open.org/sarif/sarif/v2.1.0/csprd01/sarif-v2.1.0-csprd01.html) stylistically as a long term goal makes sense, not only because it's a successful standard, but also because our results will be closely linked with SARIF, so we could have many users, consumers, and implementors in common.
 
 Note that like SARIF, this format is not intended to be a replacement for a diagnostic log. It's not intended to have anything more than minimum diagnostics to help with reproducibility.
 
