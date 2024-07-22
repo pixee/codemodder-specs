@@ -14,15 +14,15 @@ Note that like SARIF, this format is not intended to be a replacement for a diag
 
 It may help to understand the major components of CodeTF from a high levels first before exploring or attemptin to implement the specification. The `results` and `changeset` fields can be seen as a series of patches against a project's directory. Each patch builds on any previous patches seen. Therefore, applying a patch from the middle of a `changeset` without the others may be invalid. Multiple locations can be changed in a single file within the scope of a single codemod and be represented by a single `changeset` array entry.
 
-# Codemod IDs
+# Codemod URIs
 
-Codemods are uniquely identified by an ID, which is represented in CodeTF as the `codemod` property of the `result` object.
+Codemods are uniquely identified by a URI, which is represented in CodeTF as the `codemod` property of the `result` object.
 
-IDs are descriptive and must conform to the following schema: `<origin>:<language>/<name>`
+URIs are descriptive and must conform to the following schema: `<detector>:<language>/<name>`
 
-Each component of the ID has a particular meaning:
+Each component of the URI has a particular meaning:
 
-* `<origin>`: Origin describes the source of the analysis or transformation. For example, "find and fix" codemods provided by Pixee are labelled with the origin "pixee". Codemods that remediate issues found by a static analysis tool might be labelled with the origin corresponding to that tool name (e.g. "semgrep" or "codeql"). Implementers of custom codemods may use a unique identifier that is specific to their organization or tool.
+* `<detector>`: Describes the source of the analysis that drives the transformation. Codemods that remediate issues found by a specific analysis tool should be labeled with the detector corresponding to that tool name (e.g. "semgrep", "codeql", etc.). Implementers of custom codemods that perform their own internal detection should use a unique identifier for their detector. For example, Pixee's "find and fix" codemods use "pixee".
 * `<language>`: The language that is transformed by the codemod. This should be a short, unique identifier for the language. Valid languages include `java`, `python`, and `javascript`.
 * `<name>`: The name of the codemod. This should be a short, unique identifier for the transformation that is performed. Individual words in the name should be separated by hyphens. For example: `remove-unused-imports`.
 
