@@ -80,6 +80,14 @@ The `executable` could involve multiple command line tokens (e.g., `npm run` or 
 }
 ```
 
+## Tool result parameters
+
+Codemodder accepts several parameters that are used to provide tool result inputs to the codemods. These include `--sarif`, `--sonar-issues-json`, `--sonar-hotspots-json`, and a handful of others that are tied to tool-specific formats. The available parameters may be gradually expanded as new tools are supported.
+
+In general each tool result flag accecpts a comma-separated list of paths to files that contain the tool results. It is also possible to combine multiple tool result flags in a single invocation of the codemodder (e.g. to use both `--sarif` and `--sonar-issues-json`), subject to the restriction below.
+
+**NOTE:** It is _not_ allowed to provide multiple SARIF inputs _for the same tool_ in a single invocation of the codemodder. For example, it is not possible to provide two Semgrep SARIF files, although it would be possible to provide e.g. a Semgrep SARIF file and a CodeQL JSON file in the same invocation.
+
 ## Configuring OpenAI
 
 You can optionally allow codemods to access OpenAI by running with the following environment variable during execution:
