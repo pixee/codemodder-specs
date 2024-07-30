@@ -41,16 +41,9 @@ The `executable` could involve multiple command line tokens (e.g., `npm run` or 
 - The only required field is `<project directory>`. However, this field is not required if running either `--help`, `--list`, `--describe`, or `--version`.
 - You cannot legally specify any argument more than one time.
 - If `--output` is given, it indicates the path where a codetf or diff file will be created (depending on the value of `--output-format`). Otherwise no output file is generated.
-- All codemod rules are loaded by default unless `--codemode-include` specifies a list.  `-codemode-exclude` works off all default codemods.
+- All codemod rules are loaded by default unless `--codemod-include` specifies a list. `--codemod-exclude` works off all default codemods.
 - Specifying a `--codemod-include` or `--codemod-exclude`  that references a non-existent codemod will result in an error
 - You can specify a simple wildcard for `--codemod-include` and `--codemod-exclude` (e.g., `--codemod-include=acme:*`). If this pattern doesn't match any codemods, a warning will be issued.
-- The `--path-include` and `--path-exclude` patterns are interpreted as relative to the given `<project directory>`. In practice this means that the patterns should be joined with the `<project directory>` when used internally and also when passed to external tools.
-- Codemodders are free to determine reasonable defaults for included and excluded paths. In general, codemodders should attempt to match only relevant source files and to ignore test directories and build artifacts by default. For example, codemodders will generally want to exclude `**/tests/**` by default. This will be interpreted relative to the given `<project directory>`, which means that the effective pattern will be `<project directory>/**/tests/**`.
-- For `--path-include` and `--path-exclude`, specific line numbers can be supplied. For instance, to include `src/Foo.java` but only allow changes found on line 11, you would pass `--path-include src/Foo.java:11`.
-- *Included* patterns that contain line numbers should be stripped of the line number before being used by either codemodder or external tools to determine which paths are included.
-- *Excluded* patterns that contain line numbers should *not* be used by either codemodder or external tools when determining paths to be excluded. In other words, a single excluded line should not prevent the entire file from being excluded by either codemodder or any external tools.
-- The line includes/excludes only only specifies if nodes are scanned/considered by the codemods. I won’t guarantee that nodes that matches the rules remains unchanges. For example, for `--path-exclude src/[Foo.java](http://Foo.java):11` any vulnerable node inside line `11` in `Foo.java` will be ignore by individual codemods. However it may be changed as part of a fix for another vulnerable node.
-- It is up to the individual codemodders to handle edge cases in the line includes/excludes.
 - If the `<project directory>` doesn’t exist, an error should be thrown
 - You can provide multiple `--parameter` arguments, but only one per codemod/name/file/line combination
 - The `--parameter` argument contains a set of `name=value` pairs following the LDAPv3 Distinguished Name spec (see [RFC 4514](https://datatracker.ietf.org/doc/html/rfc4514.html)).
@@ -79,6 +72,22 @@ The `executable` could involve multiple command line tokens (e.g., `npm run` or 
   ]
 }
 ```
+
+## Path inclusion and exclusion
+
+The `--path-include` and `--path-exclude` patterns are interpreted as relative to the given `<project directory>`. In practice this means that the patterns should be joined with the `<project directory>` when used internally and also when passed to external tools.
+
+In general, codemods that remediate the results of other tools respect the file paths specified in findings by those tools. Explicit configuration provided by the user via `--path-include` and `--path-exclude` takes precedence over any defaults a codemod may define. Remediation codemods must not impose their own defaults: the philosophy here is that an external tool has its own defaults and/or configuration, and this should be respected by codemodder.
+
+Codemods that perform their own detection (i.e. "find-and-fix" codemods) may wish to define reasonable defaults for the paths to be included and excluded for analysis. It is recommended that such codemods should include only relevant source files and ignore test directories and build artifacts by default. For example, such codemods will generally want to exclude `**/tests/**` by default. This will be interpreted relative to the given `<project directory>`, which means that the effective pattern will be `<project directory>/**/tests/**`.
+
+For `--path-include` and `--path-exclude`, specific line numbers can be supplied. For instance, to include `src/Foo.java` but only allow changes found on line 11, you would pass `--path-include src/Foo.java:11`.
+- *Included* patterns that contain line numbers should be stripped of the line number before being used by either codemodder or external tools to determine which paths are included.
+- *Excluded* patterns that contain line numbers should *not* be used by either codemodder or external tools when determining paths to be excluded. In other words, a single excluded line should not prevent the entire file from being excluded by either codemodder or any external tools.
+
+The line includes/excludes only only specifies if nodes are scanned/considered by the codemods. It won’t guarantee that nodes that matches the rules remains unchanges. For example, for `--path-exclude src/[Foo.java](http://Foo.java):11` any vulnerable node inside line `11` in `Foo.java` will be ignore by individual codemods. However it may be changed as part of a fix for another vulnerable node.
+
+It is up to the individual codemodders to handle edge cases in the line includes/excludes.
 
 ## Tool result parameters
 
