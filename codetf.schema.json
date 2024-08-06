@@ -268,7 +268,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "A unique identifier for the finding (e.g. 'guid' from SARIF)"
+            "description": "A unique identifier for the finding, if provided by the detection tool. Concerning logically equivalent findings across scans, this identifier has the same semantics as `guid` from SARIF."
           },
           "rule": {
             "$ref": "#/definitions/detector/rule",
@@ -276,14 +276,14 @@
           }
         },
         "additionalProperties": true,
-        "required": ["id", "rule"]
+        "required": ["rule"]
       },
       "unfixedFinding": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "description": "A unique identifier for the finding (e.g. 'guid' from SARIF)"
+            "description": "A unique identifier for the finding, if provided by the detection tool. Concerning logically equivalent findings across scans, this identifier has the same semantics as `guid` from SARIF."
           },
           "rule": {
             "$ref": "#/definitions/detector/rule",
@@ -303,7 +303,7 @@
           }
         },
         "additionalProperties": true,
-        "required": ["id", "rule", "path", "reason"]
+        "required": ["rule", "path", "reason"]
       },
       "rule": {
         "type": "object",
