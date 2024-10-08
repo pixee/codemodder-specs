@@ -97,7 +97,9 @@ In general each tool result flag accecpts a comma-separated list of paths to fil
 
 **NOTE:** It is _not_ allowed to provide multiple SARIF inputs _for the same tool_ in a single invocation of the codemodder. For example, it is not possible to provide two Semgrep SARIF files, although it would be possible to provide e.g. a Semgrep SARIF file and a CodeQL JSON file in the same invocation.
 
-## Configuring OpenAI
+## Configuring LLM Support
+
+### Using OpenAI
 
 You can optionally allow codemods to access OpenAI by running with the following environment variable during execution:
 ```bash
@@ -122,6 +124,18 @@ CODEMODDER_AZURE_OPENAI_GPT_4_TURBO_2024_04_12_API_DEPLOYMENT=<DEPLOYMENT_NAME>
 - The `CODEMODDER_AZURE_API_VERSION` is optional and codemodders can choose a reasonable default as a fallback. This spec does not intend to be prescriptive about particular fallback versions.
 - If using Azure OpenAI and a codemod requests access to a model for which there is no corresponding `CODEMODDER_AZURE_OPENAI_(MODELNAME)_DEPLOYMENT` variable, the deployment name will be assumed to be the name of the model (e.g., "gpt-4o").
 - If both Azure and OpenAI instructions are available, Azure will be preferred.
+
+### Using Llama (Azure)
+
+Llama models hosted within Azure can be used with the following environment variables:
+
+```bash
+CODEMODDER_AZURE_LLAMA_API_KEY=<KEY>
+CODEMODDER_AZURE_LLAMA_ENDPOINT=<ENDPOINT>
+```
+
+- Providing `CODEMODDER_AZURE_LLAMA_API_KEY` without `CODEMODDER_AZURE_LLAMA_ENDPOINT` (and vice versa) will cause a failure on startup.
+- Configuring the Azure Llama client is orthogonal to configuring the Azure OpenAI client. Both can be used in the same codemodder run.
 
 ## Console output
 
