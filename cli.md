@@ -42,6 +42,7 @@ The `executable` could involve multiple command line tokens (e.g., `npm run` or 
 - You cannot legally specify any argument more than one time.
 - If `--output` is given, it indicates the path where a codetf or diff file will be created (depending on the value of `--output-format`). Otherwise no output file is generated.
 - All codemod rules are loaded by default unless `--codemod-include` specifies a list. `--codemod-exclude` works off all default codemods.
+- Specifying a `--codemod-include` will set the order of codemod execution, otherwise the order will be the order of the codemod collection passed to the entry point API.
 - Specifying a `--codemod-include` or `--codemod-exclude`  that references a non-existent codemod will result in an error
 - You can specify a simple wildcard for `--codemod-include` and `--codemod-exclude` (e.g., `--codemod-include=acme:*`). If this pattern doesn't match any codemods, a warning will be issued.
 - If the `<project directory>` doesn’t exist, an error should be thrown
