@@ -171,6 +171,15 @@
         "ai": {
           "description": "Metadata about AI tool used to generate the fix",
           "$ref": "#/definitions/ai"
+        },
+        "strategy": {
+          "type": "string",
+          "description": "The strategy used to generate the fix",
+          "enum": ["ai", "hybrid", "deterministic"]
+        },
+        "provisional": {
+          "type": "boolean",
+          "description": "Indicates that the fix is provisional"
         }
       },
       "required": ["path", "diff", "changes"]
