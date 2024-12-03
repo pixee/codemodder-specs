@@ -216,7 +216,7 @@
           "description": "The package actions that were needed to support changes to the file",
           "items": { "$ref": "#/definitions/packageAction" }
         },
-        "findings": {
+        "fixedFindings": {
           "type": "array",
           "description": "List of findings that were fixed at this location",
           "items": { "$ref": "#/definitions/detector/fixedFinding" }
