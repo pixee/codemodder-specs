@@ -180,6 +180,11 @@
         "provisional": {
           "type": "boolean",
           "description": "Indicates that the fix is provisional"
+        },
+        "fixedFindings": {
+          "type": "array",
+          "description": "List of findings that were fixed by this changeset",
+          "items": { "$ref": "#/definitions/detector/fixedFinding" }
         }
       },
       "required": ["path", "diff", "changes"]
