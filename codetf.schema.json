@@ -180,6 +180,11 @@
         "provisional": {
           "type": "boolean",
           "description": "Indicates that the fix is provisional"
+        },
+        "fixedFindings": {
+          "type": "array",
+          "description": "List of findings that were fixed by this changeset. Used for findings that can't be attached to a specific change.",
+          "items": { "$ref": "#/definitions/detector/fixedFinding" }
         }
       },
       "required": ["path", "diff", "changes"]
@@ -211,7 +216,7 @@
           "description": "The package actions that were needed to support changes to the file",
           "items": { "$ref": "#/definitions/packageAction" }
         },
-        "findings": {
+        "fixedFindings": {
           "type": "array",
           "description": "List of findings that were fixed at this location",
           "items": { "$ref": "#/definitions/detector/fixedFinding" }
