@@ -183,7 +183,7 @@
         },
         "fixedFindings": {
           "type": "array",
-          "description": "List of findings that were fixed by this changeset",
+          "description": "List of findings that were fixed by this changeset. Used for findings that can't be attached to a specific change.",
           "items": { "$ref": "#/definitions/detector/fixedFinding" }
         }
       },
