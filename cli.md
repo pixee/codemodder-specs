@@ -11,8 +11,7 @@ To guarantee a consistent user experience when using codemodder codemods, we off
 | --output-format   | the format for the data output file (codetf or diff) |
 | --sarif           | comma-separated set of path(s) to SARIF file(s) to feed to the codemods |
 | --contrast-vulnerabilities-xml | the path to a file containing the result of a call to the Contrast Assess XML export API |
-| --sonar-issues-json | the path to a file containing output from Sonar's Issues API |
-| --sonar-hotspots-json | the path to a file containing output from Sonar's Hotspots API |
+| --sonar-json | the path to a file containing output from Sonar's Issues or Hotspots API, or a merged combination of two such files
 | --defectdojo-findings-json | the path to a file containing output from DefectDojo's v2 Findings API |
 | --path-include    | comma-separated, exact-match, set of UNIX glob patterns to include. In the case of a conflict with excludes, excludes are given precedence.|
 | --path-exclude    | comma-separated, exact-match, set of UNIX glob patterns to exclude. In the case of a conflict with includes, excludes are given precedence.|
@@ -92,9 +91,9 @@ It is up to the individual codemodders to handle edge cases in the line includes
 
 ## Tool result parameters
 
-Codemodder accepts several parameters that are used to provide tool result inputs to the codemods. These include `--sarif`, `--sonar-issues-json`, `--sonar-hotspots-json`, and a handful of others that are tied to tool-specific formats. The available parameters may be gradually expanded as new tools are supported.
+Codemodder accepts several parameters that are used to provide tool result inputs to the codemods. These include `--sarif`, `--sonar-json`, and a handful of others that are tied to tool-specific formats. The available parameters may be gradually expanded as new tools are supported.
 
-In general each tool result flag accecpts a comma-separated list of paths to files that contain the tool results. It is also possible to combine multiple tool result flags in a single invocation of the codemodder (e.g. to use both `--sarif` and `--sonar-issues-json`), subject to the restriction below.
+In general each tool result flag accecpts a comma-separated list of paths to files that contain the tool results. It is also possible to combine multiple tool result flags in a single invocation of the codemodder (e.g. to use both `--sarif` and `--sonar-json`), subject to the restriction below.
 
 **NOTE:** It is _not_ allowed to provide multiple SARIF inputs _for the same tool_ in a single invocation of the codemodder. For example, it is not possible to provide two Semgrep SARIF files, although it would be possible to provide e.g. a Semgrep SARIF file and a CodeQL JSON file in the same invocation.
 
