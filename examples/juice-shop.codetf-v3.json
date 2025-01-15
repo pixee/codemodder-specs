@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pixee.ai/codetf-v3.schema.json",
+  "title": "Example Code Transformation Format (CodeTF) v3.0",
+  "run": {
+    "vendor": "pixee",
+    "tool": "codemodder-python",
+    "version": "0.1.0",
+    "elapsed": 229992,
+    "commandLine": "codemodder-python --verbose --dry-run --sonar /Users/example/sonar_juice-shop.json /Users/example/juice-shop",
+    "directory": "/Users/example/juice-shop",
+    "sarifs": []
+  },
+  "fixes": [
+    {
+      "findingMetadata": {
+        "id": "AY_oou_T06kdz9UIRiDs",
+        "name": "Prevent SQL Injection",
+        "summary": "Prevent SQL Injection Attacks by Using Safe ObjectId Conversion",
+        "rule": {
+          "id": "tssecurity:S5147",
+          "name": "Change this code to not construct database queries directly from user-controlled data.",
+          "url": "https://rules.sonarsource.com/python/RSPEC-5147/"
+        }
+      },
+      "changesets": [
+        {
+          "path": "routes/likeProductReviews.ts",
+          "diff": "--- \n+++ \n@@ -6,7 +6,6 @@\n import challengeUtils = require('../lib/challengeUtils')\n import { type Request, type Response, type NextFunction } from 'express'\n import { type Review } from '../data/types'\n-\n const challenges = require('../data/datacache').challenges\n const db = require('../data/mongodb')\n const security = require('../lib/insecurity')\n@@ -15,20 +14,20 @@\n   return (req: Request, res: Response, next: NextFunction) => {\n     const id = req.body.id\n     const user = security.authenticatedUsers.from(req)\n-    db.reviews.findOne({ _id: id }).then((review: Review) => {\n+    db.reviews.findOne({ _id: db.ObjectId(id) }).then((review: Review) => {\n       if (!review) {\n         res.status(404).json({ error: 'Not found' })\n       } else {\n         const likedBy = review.likedBy\n         if (!likedBy.includes(user.data.email)) {\n           db.reviews.update(\n-            { _id: id },\n+            { _id: db.ObjectId(id) },\n             { $inc: { likesCount: 1 } }\n           ).then(\n             () => {\n               // Artificial wait for timing attack challenge\n               setTimeout(function () {\n-                db.reviews.findOne({ _id: id }).then((review: Review) => {\n+                db.reviews.findOne({ _id: db.ObjectId(id) }).then((review: Review) => {\n                   const likedBy = review.likedBy\n                   likedBy.push(user.data.email)\n                   let count = 0\n",
+          "reasoning": "The vulnerability can be fixed by converting the user-controlled input to a safe ObjectId before using it in the database query. This will prevent SQL injection attacks.",
+          "changes": [
+            {
+              "lineNumber": 17,
+              "description": "Updated the query to use a safe ObjectId conversion to prevent injection attacks.",
+              "diffSide": "right"
+            },
+            {
+              "lineNumber": 24,
+              "description": "Updated the query parameter to use a safe ObjectId conversion to prevent injection attacks.",
+              "diffSide": "right"
+            },
+            {
+              "lineNumber": 30,
+              "description": "Updated the query to use a safe ObjectId conversion to prevent injection attacks.",
+              "diffSide": "right"
+            }
+          ]
+        }
+      ],
+      "fixMetadata": {
+        "summary": "Safe ObjectId conversion for database queries.",
+        "description": "Updated database queries to use ObjectId conversion to prevent SQL injection vulnerabilities caused by user-controlled inputs.",
+        "references": [
+          {
+            "url": "https://rules.sonarsource.com/python/RSPEC-5147/",
+            "description": "Sonar rule for preventing SQL injection."
+          }
+        ],
+        "generation": {
+          "strategy": "ai",
+          "ai": {
+            "provider": "openai",
+            "model": "gpt-4-turbo-2024-04-09",
+            "tokens": 0
+          },
+          "provisional": true
+        }
+      }
+    },
+    {
+      "findingMetadata": {
+        "id": "AY_oou9a06kdz9UIRiCc",
+        "name": "Prevent SQL Injection",
+        "summary": "Prevent SQL Injection Attacks by Using Parameterized Queries",
+        "rule": {
+          "id": "tssecurity:S3649",
+          "name": "Change this code to not construct SQL queries directly from user-controlled data.",
+          "url": "https://rules.sonarsource.com/python/RSPEC-3649/"
+        }
+      },
+      "changesets": [
+        {
+          "path": "routes/login.ts",
+          "diff": "--- \n+++ \n@@ -10,6 +10,7 @@\n import { UserModel } from '../models/user'\n import challengeUtils = require('../lib/challengeUtils')\n import config from 'config'\n+import { QueryTypes } from 'sequelize'\n \n import * as utils from '../lib/utils'\n const security = require('../lib/insecurity')\n@@ -33,7 +34,12 @@\n \n   return (req: Request, res: Response, next: NextFunction) => {\n     verifyPreLoginChallenges(req) // vuln-code-snippet hide-line\n-    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: UserModel, plain: true }) // vuln-code-snippet vuln-line loginAdminChallenge loginBenderChallenge loginJimChallenge\n+    models.sequelize.query('SELECT * FROM Users WHERE email = ? AND password = ? AND deletedAt IS NULL', {\n+      replacements: [req.body.email || '', security.hash(req.body.password || '')],\n+      model: UserModel,\n+      plain: true,\n+      type: QueryTypes.SELECT\n+    }) // vuln-code-snippet vuln-line loginAdminChallenge loginBenderChallenge loginJimChallenge\n       .then((authenticatedUser: { data: User }) => { // vuln-code-snippet neutral-line loginAdminChallenge loginBenderChallenge loginJimChallenge\n         const user = utils.queryResultToJson(authenticatedUser)\n         if (user.data?.id && user.data.totpSecret !== '') {\n",
+          "reasoning": "Replaced raw SQL queries with parameterized queries using Sequelize's QueryTypes to prevent SQL injection.",
+          "changes": [
+            {
+              "lineNumber": 13,
+              "description": "Imported QueryTypes from Sequelize to enable parameterized queries.",
+              "diffSide": "right"
+            },
+            {
+              "lineNumber": 37,
+              "description": "Replaced raw SQL query with a parameterized query to prevent SQL injection.",
+              "diffSide": "right"
+            }
+          ]
+        },
+        {
+          "path": "routes/search.ts",
+          "diff": "--- \n+++ \n@@ -6,6 +6,7 @@\n import models = require('../models/index')\n import { type Request, type Response, type NextFunction } from 'express'\n import { UserModel } from '../models/user'\n+import { QueryTypes } from 'sequelize'\n \n import * as utils from '../lib/utils'\n const challengeUtils = require('../lib/challengeUtils')\n@@ -20,7 +21,10 @@\n   return (req: Request, res: Response, next: NextFunction) => {\n     let criteria: any = req.query.q === 'undefined' ? '' : req.query.q ?? ''\n     criteria = (criteria.length <= 200) ? criteria : criteria.substring(0, 200)\n-    models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`) // vuln-code-snippet vuln-line unionSqlInjectionChallenge dbSchemaChallenge\n+    models.sequelize.query('SELECT * FROM Products WHERE ((name LIKE :search OR description LIKE :search) AND deletedAt IS NULL) ORDER BY name', {\n+      replacements: { search: `%${criteria}%` },\n+      type: QueryTypes.SELECT\n+    }) // vuln-code-snippet vuln-line unionSqlInjectionChallenge dbSchemaChallenge\n       .then(([products]: any) => {\n         const dataString = JSON.stringify(products)\n         if (challengeUtils.notSolved(challenges.unionSqlInjectionChallenge)) { // vuln-code-snippet hide-start\n",
+          "reasoning": "The vulnerability can be fixed by replacing raw SQL queries with parameterized queries using Sequelize's QueryTypes. This approach ensures user input is safely injected into the query, preventing SQL injection vulnerabilities.",
+          "changes": [
+            {
+              "lineNumber": 9,
+              "description": "Imported QueryTypes from Sequelize to use parameterized queries.",
+              "diffSide": "right"
+            },
+            {
+              "lineNumber": 24,
+              "description": "Changed raw SQL query to a parameterized query to prevent SQL injection.",
+              "diffSide": "right"
+            },
+            {
+              "lineNumber": 26,
+              "description": "Added replacements object to safely inject user input into the query.",
+              "diffSide": "right"
+            },
+            {
+              "lineNumber": 26,
+              "description": "Specified the query type as SELECT to ensure proper execution.",
+              "diffSide": "right"
+            }
+          ]
+        }
+      ],
+      "fixMetadata": {
+        "summary": "Replaced raw SQL queries with parameterized queries.",
+        "description": "Updated SQL queries in multiple files to use Sequelize's parameterized queries with QueryTypes. This approach ensures user input is safely injected into the query, preventing SQL injection vulnerabilities.",
+        "references": [
+          {
+            "url": "https://rules.sonarsource.com/python/RSPEC-3649/",
+            "description": "Sonar rule for preventing SQL injection."
+          }
+        ],
+        "generation": {
+          "strategy": "ai",
+          "ai": {
+            "provider": "openai",
+            "model": "gpt-4-turbo-2024-04-09",
+            "tokens": 0
+          },
+          "provisional": false
+        }
+      }
+    }
+  ],
+  "failedFiles": [
+    {
+      "path": "routes/vulnerableFile.ts",
+      "reason": "Syntax error in the file prevented analysis."
+    },
+    {
+      "path": "controllers/userController.js",
+      "reason": "File encoding is unsupported or corrupt."
+    }
+  ],
+  "unfixedFindings": [
+    {
+      "id": "tssecurity:S5147",
+      "rule": {
+        "id": "tssecurity:S5147",
+        "name": "Change this code to not construct database queries directly from user-controlled data.",
+        "url": "https://rules.sonarsource.com/python/RSPEC-5147/"
+      },
+      "locations": [
+        {
+          "path": "routes/createProductReviews.ts",
+          "line": 19
+        },
+        {
+          "path": "routes/likeProductReviews.ts",
+          "line": 31
+        }
+      ],
+      "reason": "Magic codemod failed to fix."
+    }
+  ]
+}
