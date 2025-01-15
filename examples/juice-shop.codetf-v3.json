@@ -48,6 +48,7 @@
         }
       ],
       "fixMetadata": {
+        "id": "sonar:tssecurity%3AS5147",
         "summary": "Safe ObjectId conversion for database queries.",
         "description": "Updated database queries to use ObjectId conversion to prevent SQL injection vulnerabilities caused by user-controlled inputs.",
         "references": [
@@ -125,6 +126,7 @@
         }
       ],
       "fixMetadata": {
+        "id": "sonar:javascript/sql-parameterization",
         "summary": "Replaced raw SQL queries with parameterized queries.",
         "description": "Updated SQL queries in multiple files to use Sequelize's parameterized queries with QueryTypes. This approach ensures user input is safely injected into the query, preventing SQL injection vulnerabilities.",
         "references": [

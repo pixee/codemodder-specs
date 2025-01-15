@@ -68,6 +68,7 @@
           "type": "object",
           "description": "Metadata about the fix itself",
           "properties": {
+            "id": { "type": "string", "description": "Unique identifier for the fix (corresponds to legacy codemod ID)" },
             "summary": { "type": "string", "description": "Short description of the fix" },
             "description": { "type": "string", "description": "Detailed description of the fix" },
             "references": {
@@ -90,7 +91,7 @@
               "required": ["strategy"]
             }
           },
-          "required": ["summary", "description", "generation"]
+          "required": ["id", "summary", "description", "generation"]
         }
       },
       "required": ["findingMetadata", "changesets", "fixMetadata"]
