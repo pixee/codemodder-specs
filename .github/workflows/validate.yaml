@@ -28,6 +28,8 @@ jobs:
         run: pip install -r scripts/requirements.txt
       - name: Validate schema
         run: ./scripts/validate_schema.py codetf.schema.json
+      - name: Validate schema v3
+        run: ./scripts/validate_schema.py codetf.schema-v3.json
   test-examples:
     name: Test CodeTF Examples
     runs-on: ubuntu-20.04
