@@ -15,7 +15,7 @@ concurrency:
 jobs:
   validate:
     name: Validate Schema
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - name: Set Up Python
