@@ -185,6 +185,21 @@
           "type": "array",
           "description": "List of findings that were fixed by this changeset. Used for findings that can't be attached to a specific change.",
           "items": { "$ref": "#/definitions/detector/fixedFinding" }
+        },
+        "fixQuality": {
+          "type": "object",
+          "description": "Metadata about the quality of the fix",
+          "properties": {
+            "fixQualityRating": {
+              "description": "A score (and possibly a human-readable description) of the quality of the fix",
+              "$ref": "#/definitions/rating"
+            },
+            "mergeabilityRating": {
+              "description": "A score (and possibly a human-readable description) of the mergeability of the fix",
+              "$ref": "#/definitions/rating"
+            }
+          },
+          "enum": ["high", "medium", "low"]
         }
       },
       "required": ["path", "diff", "changes"]
@@ -337,6 +352,21 @@
         },
         "additionalProperties": false,
         "required": ["id", "name"]
+      },
+      "rating": {
+        "type": "object",
+        "properties": {
+          "score": {
+            "type": "number",
+            "description": "A score from 0 to 100 representing the quality of the fix"
+          },
+          "description": {
+            "type": "string",
+            "description": "A human-readable description of the quality of the fix"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["score"]
       }
     }
   },
