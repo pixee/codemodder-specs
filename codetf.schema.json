@@ -185,6 +185,25 @@
           "type": "array",
           "description": "List of findings that were fixed by this changeset. Used for findings that can't be attached to a specific change.",
           "items": { "$ref": "#/definitions/detector/fixedFinding" }
+        },
+        "fixQuality": {
+          "type": "object",
+          "description": "Metadata about the quality of the fix",
+          "properties": {
+            "safetyRating": {
+              "description": "Can this change be accepted without breaking the code?",
+              "$ref": "#/definitions/rating"
+            },
+            "effectivenessRating": {
+              "description": "Does it fix the problem without introducing syntactic or semantic issues?",
+              "$ref": "#/definitions/rating"
+            },
+            "cleanlinessRating": {
+              "description": "Does the code make unnecessary costmetic changes (e.g. add/remove whitespace, comments)?",
+              "$ref": "#/definitions/rating"
+            }
+          },
+          "required": ["safetyRating", "effectivenessRating", "cleanlinessRating"]
         }
       },
       "required": ["path", "diff", "changes"]
@@ -337,6 +356,21 @@
         },
         "additionalProperties": false,
         "required": ["id", "name"]
+      },
+      "rating": {
+        "type": "object",
+        "properties": {
+          "score": {
+            "type": "number",
+            "description": "A score from 0 to 100 representing the quality of the fix"
+          },
+          "description": {
+            "type": "string",
+            "description": "A human-readable description of the quality of the fix"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["score"]
       }
     }
   },
