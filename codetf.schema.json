@@ -190,12 +190,16 @@
           "type": "object",
           "description": "Metadata about the quality of the fix",
           "properties": {
-            "fixQualityRating": {
-              "description": "A score (and possibly a human-readable description) of the quality of the fix",
+            "safetyRating": {
+              "description": "Can this change be accepted without breaking the code?",
               "$ref": "#/definitions/rating"
             },
-            "mergeabilityRating": {
-              "description": "A score (and possibly a human-readable description) of the mergeability of the fix",
+            "effectivenessRating": {
+              "description": "Does it fix the problem without introducing syntactic or semantic issues?",
+              "$ref": "#/definitions/rating"
+            },
+            "cleanlinessRating": {
+              "description": "Does the code make unnecessary costmetic changes (e.g. add/remove whitespace, comments)?",
               "$ref": "#/definitions/rating"
             }
           },
