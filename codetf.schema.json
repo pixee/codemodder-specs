@@ -202,8 +202,7 @@
               "description": "Does the code make unnecessary costmetic changes (e.g. add/remove whitespace, comments)?",
               "$ref": "#/definitions/rating"
             }
-          },
-          "enum": ["high", "medium", "low"]
+          }
         }
       },
       "required": ["path", "diff", "changes"]
