@@ -1,0 +1,233 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pixee.ai/codetf-v3.schema.json",
+  "title": "Code Transformation Format (CodeTF) v3.0",
+  "description": "A format for representing fixes, their associated changesets, and related metadata",
+  "type": "object",
+
+  "properties": {
+    "run": {
+      "description": "Metadata about the run that produced the results",
+      "$ref": "#/definitions/run"
+    },
+    "fixes": {
+      "description": "A list of fixes applied during the analysis",
+      "type": "array",
+      "items": { "$ref": "#/definitions/fix" },
+      "minItems": 0
+    },
+    "failedFiles": {
+      "description": "Files that the tool failed to process or transform",
+      "type": "array",
+      "items": { "$ref": "#/definitions/failedFile" },
+      "minItems": 0
+    },
+    "unfixedFindings": {
+      "description": "Findings that were detected but could not be fixed",
+      "type": "array",
+      "items": { "$ref": "#/definitions/unfixedFinding" },
+      "minItems": 0
+    }
+  },
+
+  "definitions": {
+    "run": {
+      "type": "object",
+      "properties": {
+        "vendor": { "type": "string", "description": "Name of the organization that produced the tool" },
+        "tool": { "type": "string", "description": "Name of the tool that produced the CodeTF results" },
+        "version": { "type": "string", "description": "Version of the tool that produced the CodeTF results" },
+        "projectName": { "type": "string", "description": "Name of the project that was analyzed" },
+        "elapsed": { "type": ["integer", "string"], "description": "Analysis duration in milliseconds" },
+        "commandLine": { "type": "string", "description": "Command line used to re-create this run (if applicable)" }
+      },
+      "required": ["vendor", "tool", "version", "elapsed"]
+    },
+
+    "fix": {
+      "type": "object",
+      "properties": {
+        "findingMetadata": {
+          "type": "object",
+          "description": "Metadata about the finding being addressed",
+          "properties": {
+            "id": { "type": "string", "description": "Unique identifier for the finding" },
+            "name": { "type": "string", "description": "Name of the finding, if available" },
+            "summary": { "type": "string", "description": "Short description of the finding" },
+            "rule": { "$ref": "#/definitions/rule", "description": "Rule associated with the finding" }
+          },
+          "required": ["id", "rule"]
+        },
+        "changesets": {
+          "type": "array",
+          "description": "The list of changesets that implement the fix",
+          "items": { "$ref": "#/definitions/changeset" },
+          "minItems": 1
+        },
+        "fixMetadata": {
+          "type": "object",
+          "description": "Metadata about the fix itself",
+          "properties": {
+            "id": { "type": "string", "description": "Unique identifier for the fix (corresponds to legacy codemod ID)" },
+            "summary": { "type": "string", "description": "Short description of the fix" },
+            "description": { "type": "string", "description": "Detailed description of the fix" },
+            "references": {
+              "type": "array",
+              "description": "References providing context or documentation for the fix",
+              "items": { "$ref": "#/definitions/reference" }
+            },
+            "generation": {
+              "type": "object",
+              "description": "Metadata about how the fix was generated",
+              "properties": {
+                "strategy": {
+                  "type": "string",
+                  "description": "Strategy used to generate the fix",
+                  "enum": ["ai", "hybrid", "deterministic"]
+                },
+                "ai": { "description": "Metadata about AI tool used to generate the fix", "$ref": "#/definitions/ai" },
+                "provisional": { "type": "boolean", "description": "Indicates that the fix is provisional" }
+              },
+              "required": ["strategy"]
+            }
+          },
+          "required": ["id", "summary", "description", "generation"]
+        }
+      },
+      "required": ["findingMetadata", "changesets", "fixMetadata"]
+    },
+
+    "failedFile": {
+      "type": "object",
+      "properties": {
+        "path": { "type": "string", "description": "Path of the file that failed to process" },
+        "reason": { "type": "string", "description": "Description of why the file failed to process" }
+      },
+      "required": ["path", "reason"]
+    },
+
+    "unfixedFinding": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier for the unfixed finding" },
+        "rule": { "$ref": "#/definitions/rule", "description": "Rule associated with the finding" },
+        "locations": {
+          "type": "array",
+          "description": "Locations where the finding was detected but not fixed",
+          "items": { "$ref": "#/definitions/location" }
+        },
+        "reason": { "type": "string", "description": "Explanation of why the finding was not fixed" }
+      },
+      "required": ["id", "rule", "reason"]
+    },
+
+    "rule": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Rule ID" },
+        "name": { "type": "string", "description": "Human-readable rule name" },
+        "url": { "type": "string", "description": "Link to rule documentation" }
+      },
+      "required": ["id", "name"]
+    },
+
+    "location": {
+      "type": "object",
+      "properties": {
+        "path": { "type": "string", "description": "File path relative to the project directory" },
+        "line": { "type": "integer", "description": "Line number of the issue" }
+      },
+      "required": ["path", "line"]
+    },
+
+    "changeset": {
+      "type": "object",
+      "properties": {
+        "path": { "type": "string", "description": "Path of the file that was changed" },
+        "diff": { "type": "string", "description": "Unified diff representing the changes" },
+        "changes": {
+          "type": "array",
+          "description": "Individual changes in the file",
+          "items": { "$ref": "#/definitions/change" },
+          "minItems": 1
+        },
+        "reasoning": { "type": "string", "description": "Optional high-level explanation of rationale behind the changes" }
+      },
+      "required": ["path", "diff", "changes"]
+    },
+
+    "change": {
+      "type": "object",
+      "properties": {
+        "lineNumber": { "type": "integer", "description": "Line number of the change" },
+        "description": { "type": "string", "description": "Human-readable description of the change" },
+        "diffSide": {
+          "type": "string",
+          "description": "The side of the diff that the change is on. 'right' indicates that the lineNumber and description correspond to a position in the new or modified code. 'left' indicates these fields correspond to a position in the original code. Descriptions of the change itself should generally use 'right', except in cases where the only change is a deletion. In contrast, 'left' can be used to describe the original problem being fixed.",
+          "enum": ["left", "right", "LEFT", "RIGHT"]
+        },
+        "properties": {
+          "type": "object",
+          "description": "Vendor-specific properties to help storytelling",
+          "additionalProperties": true
+        },
+        "packageActions": {
+          "type": "array",
+          "description": "The package actions that were needed to support changes to the file",
+          "items": { "$ref": "#/definitions/packageAction" }
+        }
+      },
+      "required": ["lineNumber", "description", "diffSide"]
+    },
+
+    "reference": {
+      "type": "object",
+      "properties": {
+        "url": { "type": "string", "description": "URL of the reference" },
+        "description": { "type": "string", "description": "Description of the reference" }
+      },
+      "required": ["url"]
+    },
+
+    "packageAction": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "One of 'add' or 'remove'",
+          "enum": ["add", "remove", "ADD", "REMOVE"]
+        },
+        "result": {
+          "type": "string",
+          "description": "One of 'completed', 'failed', or 'skipped'",
+          "enum": ["completed", "failed", "skipped", "COMPLETED", "FAILED", "SKIPPED"]
+        },
+        "package": {
+          "type": "string",
+          "description": "The package that was added or removed"
+        }
+      },
+      "required": ["action", "result", "package"]
+    },
+
+    "ai": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "type": "string",
+          "description": "Name of the AI provider used to generate this fix"
+        },
+        "model": {
+          "type": "string",
+          "description": "Name of the model used to generate this fix"
+        },
+        "tokens": {
+          "type": "integer",
+          "description": "Total number of tokens used to generate the fix"
+        }
+      }
+    }
+  },
+
+  "required": ["run", "fixes"]
+}
